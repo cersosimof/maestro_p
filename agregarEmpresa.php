@@ -10,7 +10,7 @@ if (isset($_GET["cargado"])) {
 	$ramo = $_POST["ramo"];
 	$cuit = $_POST["cuit"];
 
-$sqlCargarProveedores = "INSERT INTO `proveeores` (`nombre`, `correo`, `telefono`, `contacto`, `ramo`, `cuit`) VALUES ('$nombre', '$correo', '$telefono', '$contacto', '$ramo', '$cuit')";
+$sqlCargarProveedores = "INSERT INTO proveeores (nombre, correo, telefono, contacto, ramo, cuit) VALUES ('$nombre', '$correo', '$telefono', '$contacto', '$ramo', '$cuit')";
 $cargarProveedor = mysqli_query($link, $sqlCargarProveedores);
 
 $validacion = mysqli_affected_rows($link);
