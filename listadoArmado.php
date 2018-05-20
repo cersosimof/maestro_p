@@ -3,7 +3,7 @@
 include "header.php";
 require "conexion.php";
 
-$nroExpediente = $_POST["nroExpediente"];
+$nroExpediente = $_GET["nroExpediente"];
 
 //SQL de creacion de la taba. trae todo lo que tiene ese expediente.
 $SQLArmadoTabla = "SELECT listadoexpediente.idListado, listadoexpediente.nroExpediente, proveeores.idEmpresa, proveeores.nombre, proveeores.correo, proveeores.telefono, proveeores.contacto, proveeores.cuit
