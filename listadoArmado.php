@@ -22,7 +22,6 @@ if(isset($_GET["borrar"])){
 mysqli_close($link);
 ?>
 
-
 <h2> Nro. Expediente <b> <?php echo $nroExpediente;  ?> </b> - Empresas a invitar:</h2>
 
 	<table 	class="table table-bordered">
