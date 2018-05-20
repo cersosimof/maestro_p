@@ -26,4 +26,6 @@
 		    </div>
 		    <button type="submit" class="btn btn-default">Buscar</button>
 	    </form>
+
+			<li><a href="cerrarSesion.php">Cerrar Sesion</a></li>
 	</nav>
