@@ -3,7 +3,7 @@
 include "header.php";
 require "conexion.php";
 
-$nroExpediente = $_POST["nroExpediente"];
+$nroExpediente = $_GET["nroExpediente"];
 
 //SQL de creacion de la taba. trae todo lo que tiene ese expediente.
 $SQLArmadoTabla = "SELECT listadoexpediente.idListado, listadoexpediente.nroExpediente, proveeores.idEmpresa, proveeores.nombre, proveeores.correo, proveeores.telefono, proveeores.contacto, proveeores.cuit
@@ -82,77 +82,77 @@ mysqli_close($link);
 
 <script type="text/javascript" src="JS/jquery.js"></script>
 <script type="text/javascript">
-
-$(document).ready(function() {
-	// Cuando la página se carge completamente actualizamos los eventos para editar/añadir/borrar filas en la tabla Datos
-	borrarLinea();
-});
-
-function enviarMails(){
-			var NEM = document.getElementById("nroExpedienteMail").value;
-			$.ajax({
-				type: 'POST',
-				url: 'enviarMail.php',
-				data: {'nroExpedienteMail': NEM},
-					success: function(data){
-					location.href = "mailto:?subject= Nro. Exp." + NEM + "&bcc="+data+"";
-					}
-			})
-}
-
-function borrarLinea(){
-	$(".botonEliminar").click(function(){
-		if(confirm("Desea eliminar esta empresa?")){
-		$(this).parent("td").parent("tr").remove("tr");
-		var idListado = document.getElementById("idListado").value;
-			$.ajax({
-				type: 'POST',
-				url: 'eliminarEmpresa.php',
-				data: {'idListado': idListado},
-					success: function(data){
-					}
-			})
-		};
-	})
-}
-
-// Busca y agrega la linea.
-function agregarEmpresa(){
-  var nombreEmpresaBuscada = document.getElementById("nombreEmpresa").value;
-  var nroExp = document.getElementById("nroExp").value;
-    $.ajax({
-      type: 'POST',
-      url: 'solicitud.php',
-      data:{'nombreEmpresa': nombreEmpresaBuscada, 'nroExp': nroExp},
-        success: function(response){
-        $('#mytable').append(response).ready(borrarLinea());
-
-        }
-    })
-  }
-
-// Muestra las sugerencias de empresas con ese nombre.
-function sugerencia(){
-	var nombreEmpresaBuscada2 = document.getElementById("nombreEmpresa").value;
-	var nroExp2 = document.getElementById("nroExp").value;
-		$.ajax({
-		//buscar en la base de datos, la cantidad de letras ingresada en NOMBRE DE EMPRESA
-			type: 'POST',
-			url: 'search2.php',
-			data:{'empresa2': nombreEmpresaBuscada2, 'nroExp': nroExp2},
-				success: function(response){
-				// imprime las alternativas en pantalla
-				$('#listaSug').html(response);
-					$('li').click(function(){
-							var select = $(this)["0"].innerHTML
-							var myJSON = JSON.stringify(select);
-							var splitEmpresa = select.split(" ");
-							var empresaNombre = splitEmpresa["0"];
-							document.getElementById("nombreEmpresa").value = empresaNombre;
-					})
-				}
-		})
-}
+//
+// $(document).ready(function() {
+// 	// Cuando la página se carge completamente actualizamos los eventos para editar/añadir/borrar filas en la tabla Datos
+// 	borrarLinea();
+// });
+//
+// function enviarMails(){
+// 			var NEM = document.getElementById("nroExpedienteMail").value;
+// 			$.ajax({
+// 				type: 'POST',
+// 				url: 'enviarMail.php',
+// 				data: {'nroExpedienteMail': NEM},
+// 					success: function(data){
+// 					location.href = "mailto:?subject= Nro. Exp." + NEM + "&bcc="+data+"";
+// 					}
+// 			})
+// }
+//
+// function borrarLinea(){
+// 	$(".botonEliminar").click(function(){
+// 		if(confirm("Desea eliminar esta empresa?")){
+// 		$(this).parent("td").parent("tr").remove("tr");
+// 		var idListado = document.getElementById("idListado").value;
+// 			$.ajax({
+// 				type: 'POST',
+// 				url: 'eliminarEmpresa.php',
+// 				data: {'idListado': idListado},
+// 					success: function(data){
+// 					}
+// 			})
+// 		};
+// 	})
+// }
+//
+// // Busca y agrega la linea.
+// function agregarEmpresa(){
+//   var nombreEmpresaBuscada = document.getElementById("nombreEmpresa").value;
+//   var nroExp = document.getElementById("nroExp").value;
+//     $.ajax({
+//       type: 'POST',
+//       url: 'solicitud.php',
+//       data:{'nombreEmpresa': nombreEmpresaBuscada, 'nroExp': nroExp},
+//         success: function(response){
+//         $('#mytable').append(response).ready(borrarLinea());
+//
+//         }
+//     })
+//   }
+//
+// // Muestra las sugerencias de empresas con ese nombre.
+// function sugerencia(){
+// 	var nombreEmpresaBuscada2 = document.getElementById("nombreEmpresa").value;
+// 	var nroExp2 = document.getElementById("nroExp").value;
+// 		$.ajax({
+// 		//buscar en la base de datos, la cantidad de letras ingresada en NOMBRE DE EMPRESA
+// 			type: 'POST',
+// 			url: 'search2.php',
+// 			data:{'empresa2': nombreEmpresaBuscada2, 'nroExp': nroExp2},
+// 				success: function(response){
+// 				// imprime las alternativas en pantalla
+// 				$('#listaSug').html(response);
+// 					$('li').click(function(){
+// 							var select = $(this)["0"].innerHTML
+// 							var myJSON = JSON.stringify(select);
+// 							var splitEmpresa = select.split(" ");
+// 							var empresaNombre = splitEmpresa["0"];
+// 							document.getElementById("nombreEmpresa").value = empresaNombre;
+// 					})
+// 				}
+// 		})
+// }
   	</script>
 
 <?php
