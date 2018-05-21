@@ -7,7 +7,9 @@
 </head>
 <body>
 <div class="container">
-	<nav class="navbar navbar-inverse">
+
+
+	<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav">
 			<li><a href="agregarEmpresa.php">Alta</a></li>
@@ -27,5 +29,8 @@
 		    <button type="submit" class="btn btn-default">Buscar</button>
 	    </form>
 
-			<li><a href="cerrarSesion.php">Cerrar Sesion</a></li>
+<ul class="nav navbar-nav">
+				<li><a href="cerrarSesion.php">Cerrar Sesion</a></li>
+</ul>
+
 	</nav>
