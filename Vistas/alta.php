@@ -8,8 +8,8 @@ echo '  <script type="text/javascript">
            </script>';
 }
 
-	include "header.php";
-	include "conexion.php";
+	include "../Componentes/header.php";
+	include "../conexion.php";
 
 if (isset($_GET["cargado"])) {
 	$nombre = $_POST["nombre"];
@@ -58,5 +58,5 @@ $validacion = mysqli_affected_rows($link);
 </form>
 
 <?php
-include "footer.php"
+include "../Componentes/footer.php"
 ?>

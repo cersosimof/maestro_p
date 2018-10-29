@@ -19,8 +19,9 @@ $cargarProveedor = mysqli_query($link, $sqlBuscarProveedores);
 
 
 	<?php
-	$idEmpresa = $resultado["idEmpresa"];
-	$SQLIngreso = "INSERT INTO `listadoexpediente`(`idListado`, `nroExpediente`, `idEmpresa`) VALUES (NULL,'$nroExp', '$idEmpresa')";
-	$cargarProveedor = mysqli_query($link, $SQLIngreso);
-	mysqli_close($link);
-		} ?>
+		$idEmpresa = $resultado["idEmpresa"];
+		$SQLIngreso = "INSERT INTO `listadoexpediente`(`idListado`, `nroExpediente`, `idEmpresa`) VALUES (NULL,'$nroExp', '$idEmpresa')";
+		$cargarProveedor = mysqli_query($link, $SQLIngreso);
+		mysqli_close($link);
+			} 
+	?>

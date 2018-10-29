@@ -12,7 +12,7 @@
 	<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav">
-			<li><a href="agregarEmpresa.php">Alta</a></li>
+			<li><a href="alta.php">Alta</a></li>
 			<li><a href="actualizarEmpresa.php">Modificacion y baja</a></li>
 			<li><a href="armarListado.php">Listado</a></li>
 			<li><a href="listadosArmados.php">Listados Armados</a></li>
