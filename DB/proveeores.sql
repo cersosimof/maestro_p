@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 03-11-2017 a las 18:38:54
--- Versión del servidor: 10.1.26-MariaDB
--- Versión de PHP: 7.1.9
+-- Servidor: localhost
+-- Tiempo de generación: 30-10-2018 a las 03:33:39
+-- Versión del servidor: 10.1.32-MariaDB
+-- Versión de PHP: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -35,20 +35,18 @@ CREATE TABLE `proveeores` (
   `telefono` varchar(100) NOT NULL,
   `contacto` varchar(100) NOT NULL,
   `ramo` text NOT NULL,
-  `cuit` int(11) NOT NULL
+  `cuit` int(13) NOT NULL,
+  `pass` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `proveeores`
 --
 
-INSERT INTO `proveeores` (`idEmpresa`, `nombre`, `correo`, `telefono`, `contacto`, `ramo`, `cuit`) VALUES
-(13, 'Garbarino', '111', '111', '111', 'uno, dos, tres', 2147483647),
-(14, 'Fravega', '22', '22', '22', 'dos, tres, cuatro', 2147483647),
-(15, 'Musimundo', '33', '33', '33', 'tres, cuatro, cinco', 2147483647),
-(16, 'Ribeiro', '44', '44', '44', 'cuatro, cinco, seis', 2147483647),
-(17, 'Hiper', '55', '55', '55', 'seis, siete, ocho', 2147483647),
-(19, 'Patri', 'patri@lamastrola.com', '0810-patri', 'LAPATRI', 'puta, trola, re gato', 2147483647);
+INSERT INTO `proveeores` (`idEmpresa`, `nombre`, `correo`, `telefono`, `contacto`, `ramo`, `cuit`, `pass`) VALUES
+(83, 'PHP', 'cersosimo.facundo@gmail.com', '4444444', 'PHP', 'PHP', 444444, 'php'),
+(84, 'PHP', 'PHP@PHP.COM', '4444', 'PHP', 'PHP', 4444, '2fec392304a5c23ac138da22847f9b7c'),
+(85, 'PHP', 'PHP@PHP.COM', '4444', 'PHP PHP', 'PHP', 444, 'aa62487937b5dd83cd483471493eac3c');
 
 --
 -- Índices para tablas volcadas
@@ -68,7 +66,7 @@ ALTER TABLE `proveeores`
 -- AUTO_INCREMENT de la tabla `proveeores`
 --
 ALTER TABLE `proveeores`
-  MODIFY `idEmpresa` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idEmpresa` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
