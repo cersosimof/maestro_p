@@ -22,14 +22,23 @@ if (isset($_GET["cargado"])) {
 	$pass = md5($_POST["pass"]);
 
 
-$sqlCargarProveedores = "INSERT INTO proveeores (nombre, correo, telefono, contacto, ramo, cuit, pass) VALUES ('$nombre', '$correo', '$telefono', '$contacto', '$ramo', '$cuit', '$pass')";
+$sqlCargarProveedores = "INSERT INTO proveeoresss (nombre, correo, telefono, contacto, ramo, cuit, pass, participo, cotizo) VALUES ('$nombre', '$correo', '$telefono', '$contacto', '$ramo', '$cuit', '$pass', 1, 1)";
 $cargarProveedor = mysqli_query($link, $sqlCargarProveedores);
 
-$validacion = mysqli_affected_rows($link);
-	if ($validacion > 0) {
-		echo "<script>alert('el proveedor ", $nombre, " fue cargado correctamente, el mismo trabaja con los ramos ", $ramo,"')</script>";
-	}
-	header("location: principal.php");
+
+$pepe = mysqli_num_rows($cargarProveedor);
+
+if($pepe == 1) {
+    echo "holaaa";
+};
+// $validacion = mysqli_affected_rows($link);
+// 	if ($validacion > 0) {
+//         echo "<script>alert('el proveedor ", $nombre, " fue cargado correctamente, el mismo trabaja con los ramos ", $ramo,"')</script>";
+//         // header("location: principal.php");
+// 	} else {
+//         echo "<script>alert('Hubo un problema =(')</script>";
+//     }
+
 }
 
 ?>
@@ -39,40 +48,40 @@ $validacion = mysqli_affected_rows($link);
 
         <div class="form-group">
             <label for="idNombre">Nombre o Razon social:</label>
-            <input type="text" name="nombre" class="form-control" id="idNombre" required >
+            <input type="text" name="nombre" class="form-control" id="idNombre" required value="PEPE" >
         </div>
 
         <div class="form-group">
             <label for="idCuit">CUIT:</label>
-            <input type="text" name="cuit" class="form-control" id="idCuit" onblur="borrarGuion()" required >
+            <input type="text" name="cuit" class="form-control" id="idCuit" onblur="borrarGuion()" required  value="PEPE">
         </div>
 
         <div class="form-group">
             <label for="idCorreo">Correo Electronico:</label>
-            <input type="mail" name="correo" class="form-control" id="idCorreo" required >
+            <input type="mail" name="correo" class="form-control" id="idCorreo" required  value="PEPE">
             <small id="emailHelp" class="form-text text-muted">Puede ingresar mas de una direccion separando con punto y coma.</small>
         </div>
 
         <div class="form-group">
             <label for="idTel">Telefonos:</label>
-            <input type="text" name="telefono" class="form-control" id="idTel" required >
+            <input type="text" name="telefono" class="form-control" id="idTel" required  value="PEPE">
         </div>
 
         <div class="form-group">
             <label for="idContacto">Persona de contacto:</label>
-            <input type="text" name="contacto"  class="form-control" id="idContacto" >
+            <input type="text" name="contacto"  class="form-control" id="idContacto" value="PEPE" >
         </div>
 
         <div class="form-group">
             <label for="irRamo">Ramos que vende:</label>
-            <input type="text" name="ramo" class="form-control" id="idRamo" >
+            <input type="text" name="ramo" class="form-control" id="idRamo" value="PEPE" >
             <small id="emailHelp" class="form-text text-muted">Separar los distintos ramos con coma.</small>
         </div>
 
         <div class="form-group">
             <label for="idPass">Contraseña:</label>
             <div class="input-group"  >
-                <input type="password" name="pass" class="form-control" id="idPass" name="pass">
+                <input type="password" name="pass" class="form-control" id="idPass" name="pass" value="PEPE">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" onclick="mostrarPass()" type="button">Mostrar</button>
                 </div>
