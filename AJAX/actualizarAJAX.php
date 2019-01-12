@@ -1,6 +1,6 @@
 <?php
 
-require "conexion.php";
+require "../conexion.php";
 
 $nombreNuevo = $_POST["nombreNuevo"];
 $mailNuevo = $_POST["mailNuevo"];
@@ -23,13 +23,12 @@ actualizarValores($datosDB["cuit"], $cuitNuevo, $idEmpresaAActualizar, "cuit");
 
 function actualizarValores($valorAntiguo, $valorNuevo, $idEmpresaAActualizar, $columnaDB){
   global $link;
-//    $modificados = array();
+
   if ($valorAntiguo !== $valorNuevo) {
     $SQLmodificar =  "UPDATE proveeores SET $columnaDB = '$valorNuevo' WHERE idEmpresa = $idEmpresaAActualizar" ;
     $guardarNuevo = mysqli_query( $link , $SQLmodificar);
     echo '1';
   } 
-//    array_push($modificados, $columnaDB);
-//    $countModificados = count($modificados);
-  }
- ?>
+}
+
+?>

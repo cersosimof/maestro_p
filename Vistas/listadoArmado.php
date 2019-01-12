@@ -1,9 +1,10 @@
 <?php
 
-include "header.php";
-require "conexion.php";
+include "../Componentes/header.php";
+require "../conexion.php";
 
 $nroExpediente = $_GET["nroExpediente"];
+$titulo = $_GET["titulo"];
 
 //SQL de creacion de la taba. trae todo lo que tiene ese expediente.
 $SQLArmadoTabla = "SELECT listadoexpediente.idListado, listadoexpediente.nroExpediente, proveeores.idEmpresa, proveeores.nombre, proveeores.correo, proveeores.telefono, proveeores.contacto, proveeores.cuit
@@ -13,19 +14,19 @@ WHERE listadoexpediente.nroExpediente = '$nroExpediente'";
 $armadoTabla = mysqli_query($link, $SQLArmadoTabla);
 
 //SQL de eliminacion de linea.
-if(isset($_GET["borrar"])){
-		$eliminado = $_GET["borrar"];
-		$SQLEliminar = "DELETE FROM listadoexpediente WHERE idListado = $eliminado";
-		$resultado_eliminar = mysqli_query($link, $SQLEliminar);
-}
+// if(isset($_GET["borrar"])){
+// 		$eliminado = $_GET["borrar"];
+// 		$SQLEliminar = "DELETE FROM listadoexpediente WHERE idListado = $eliminado";
+// 		$resultado_eliminar = mysqli_query($link, $SQLEliminar);
+// }
 
 mysqli_close($link);
 ?>
 
-<h2> Nro. Expediente <b> <?php echo $nroExpediente;  ?> </b> - Empresas a invitar:</h2>
+<h2> Nro. Expediente: <b> <?php echo $nroExpediente;  ?> - <?php echo $titulo;  ?> </b> - Empresas a invitar:</h2>
 
-	<table 	class="table table-bordered">
-		<thead>
+	<table 	class=" table text-center">
+		<thead class="thead-dark">
 			<tr>
 	    		<th>Razon Social</th>
 			    <th>Correo Electronico</th>
@@ -42,9 +43,7 @@ mysqli_close($link);
 			    <td align="center"><?php echo $tabla["correo"]; ?></td>
 			    <td align="center"><?php echo $tabla["telefono"]; ?></td>
 			    <td align="center"><?php echo $tabla["contacto"]; ?></td>
-			    <td align="center">
-						<span class="botonEliminar glyphicon glyphicon-trash" aria-hidden="true"></span>
-					</td>
+			    <td align="center" class='botonEliminar'>DELETE</td>
 
 	  		</tr>
 				<input type="hidden" id="idListado" value="<?php echo $tabla['idListado']; ?>">
@@ -57,20 +56,20 @@ mysqli_close($link);
 	######## AGREGAR OTRA EMPRESA #########
 	####################################-->
 
-	<form action="#" method="POST" onkeypress="sugerencia()" id="submitAgregar">
+	<!-- <form action="#" method="POST" onkeypress="sugerencia()" id="submitAgregar">
 		<label>AGREGAR:
 			<input type="text" id="nombreEmpresa" placeholder="Nombre de la empresa"><br>
 		</label>
 			<input type="button" value="Agregar" onClick="agregarEmpresa()" id="botonAgregar">
 			<input type="hidden" id="nroExp" name="nroExpediente" value="<?php echo $nroExpediente; ?>">
-	</form><br>
+	</form><br> -->
 
-	<ul id="listaSug">
+	<!-- <ul id="listaSug"> -->
 
-	</ul>
+	<!-- </ul>
 	<div id="botonEnviarMail">
 		<button onclick="enviarMails()">GENERAR</button>
-	</div>
+	</div> -->
 
 
 
@@ -79,7 +78,6 @@ mysqli_close($link);
 	################# SCRIPT ##############
 	####################################-->
 
-<script type="text/javascript" src="JS/jquery.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -87,32 +85,35 @@ $(document).ready(function() {
 	borrarLinea();
 });
 
-function enviarMails(){
-			var NEM = document.getElementById("nroExpedienteMail").value;
-			$.ajax({
-				type: 'POST',
-				url: 'enviarMail.php',
-				data: {'nroExpedienteMail': NEM},
-					success: function(data){
-					location.href = "mailto:?subject= Nro. Exp." + NEM + "&bcc="+data+"";
-					}
-			})
-}
+// function enviarMails(){
+// 			var NEM = document.getElementById("nroExpedienteMail").value;
+// 			$.ajax({
+// 				type: 'POST',
+// 				url: 'enviarMail.php',
+// 				data: {'nroExpedienteMail': NEM},
+// 					success: function(data){
+// 					location.href = "mailto:?subject= Nro. Exp." + NEM + "&bcc="+data+"";
+// 					}
+// 			})
+// }
 
 function borrarLinea(){
-	$(".botonEliminar").click(function(){
-		if(confirm("Desea eliminar esta empresa?")){
-		$(this).parent("td").parent("tr").remove("tr");
-		var idListado = document.getElementById("idListado").value;
-			$.ajax({
-				type: 'POST',
-				url: 'eliminarEmpresa.php',
-				data: {'idListado': idListado},
-					success: function(data){
-					}
-			})
-		};
-	})
+	var botonesEliminar = document.querySelectorAll(".botonEliminar")
+		console.log(botonesEliminar)
+	// .onclick = () => {
+	// 	alert("borrar")
+		// if(confirm("Desea eliminar esta empresa?")){
+		// $(this).parent("td").parent("tr").remove("tr");
+		// var idListado = document.getElementById("idListado").value;
+		// 	$.ajax({
+		// 		type: 'POST',
+		// 		url: 'eliminarEmpresa.php',
+		// 		data: {'idListado': idListado},
+		// 			success: function(data){
+		// 			}
+		// 	})
+		// };
+	// }
 }
 
 // Busca y agrega la linea.
@@ -155,5 +156,5 @@ function sugerencia(){
   	</script>
 
 <?php
-include "footer.php";
+include "../Componentes/footer.php";
 ?>

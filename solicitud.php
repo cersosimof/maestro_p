@@ -6,8 +6,6 @@ $nroExp = $_POST["nroExp"];
 $sqlBuscarProveedores = "SELECT idEmpresa, nombre, correo, telefono, contacto FROM proveeores WHERE nombre LIKE '%$tag%'";
 $cargarProveedor = mysqli_query($link, $sqlBuscarProveedores);
 
-
-
 		while($resultado = mysqli_fetch_assoc($cargarProveedor)){ ?>
 		    <tr align="center"><td><?php echo $resultado["nombre"]; ?></td>
 		    <td align="center"><?php echo $resultado["correo"]; ?></td>

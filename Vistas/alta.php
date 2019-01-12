@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 if (!isset($_SESSION['usuario'])){
 echo '  <script type="text/javascript">
@@ -21,67 +20,58 @@ if (isset($_GET["cargado"])) {
 	$ramo = $_POST["ramo"];
 	$pass = md5($_POST["pass"]);
 
+$sqlCargarProveedores = "INSERT INTO proveeores (nombre, correo, telefono, contacto, ramo, cuit, pass, participo, cotizo) VALUES ('$nombre', '$correo', '$telefono', '$contacto', '$ramo', '$cuit', '$pass', 0, 0)";
 
-$sqlCargarProveedores = "INSERT INTO proveeoresss (nombre, correo, telefono, contacto, ramo, cuit, pass, participo, cotizo) VALUES ('$nombre', '$correo', '$telefono', '$contacto', '$ramo', '$cuit', '$pass', 1, 1)";
-$cargarProveedor = mysqli_query($link, $sqlCargarProveedores);
-
-
-$pepe = mysqli_num_rows($cargarProveedor);
-
-if($pepe == 1) {
-    echo "holaaa";
-};
-// $validacion = mysqli_affected_rows($link);
-// 	if ($validacion > 0) {
-//         echo "<script>alert('el proveedor ", $nombre, " fue cargado correctamente, el mismo trabaja con los ramos ", $ramo,"')</script>";
-//         // header("location: principal.php");
-// 	} else {
-//         echo "<script>alert('Hubo un problema =(')</script>";
-//     }
-
+        if(mysqli_query($link, $sqlCargarProveedores)) {
+            //enviar el alert, y luego envia al inicio
+            echo "<script>alert('El proveedor ", $nombre, " fue cargado correctamente, el mismo trabaja con los ramos ", $ramo,"'); window.location.href = 'principal.php'</script>"; 
+        } else {
+            echo "<script>alert('Error!!! Intente nuevamente')</script>";
+        }
 }
 
 ?>
+
 <!--FORM DE INGRESO EMPRESA -->
 <div class='container'>
 	<form  action="alta.php?cargado=1" method="POST">
 
         <div class="form-group">
             <label for="idNombre">Nombre o Razon social:</label>
-            <input type="text" name="nombre" class="form-control" id="idNombre" required value="PEPE" >
+            <input type="text" name="nombre" class="form-control" id="idNombre" required  >
         </div>
 
         <div class="form-group">
             <label for="idCuit">CUIT:</label>
-            <input type="text" name="cuit" class="form-control" id="idCuit" onblur="borrarGuion()" required  value="PEPE">
+            <input type="text" name="cuit" class="form-control" id="idCuit" onblur="borrarGuion()" required  >
         </div>
 
         <div class="form-group">
             <label for="idCorreo">Correo Electronico:</label>
-            <input type="mail" name="correo" class="form-control" id="idCorreo" required  value="PEPE">
+            <input type="mail" name="correo" class="form-control" id="idCorreo" required  >
             <small id="emailHelp" class="form-text text-muted">Puede ingresar mas de una direccion separando con punto y coma.</small>
         </div>
 
         <div class="form-group">
             <label for="idTel">Telefonos:</label>
-            <input type="text" name="telefono" class="form-control" id="idTel" required  value="PEPE">
+            <input type="text" name="telefono" class="form-control" id="idTel" required  >
         </div>
 
         <div class="form-group">
             <label for="idContacto">Persona de contacto:</label>
-            <input type="text" name="contacto"  class="form-control" id="idContacto" value="PEPE" >
+            <input type="text" name="contacto"  class="form-control" id="idContacto"  >
         </div>
 
         <div class="form-group">
             <label for="irRamo">Ramos que vende:</label>
-            <input type="text" name="ramo" class="form-control" id="idRamo" value="PEPE" >
+            <input type="text" name="ramo" class="form-control" id="idRamo"  >
             <small id="emailHelp" class="form-text text-muted">Separar los distintos ramos con coma.</small>
         </div>
 
         <div class="form-group">
             <label for="idPass">Contraseña:</label>
             <div class="input-group"  >
-                <input type="password" name="pass" class="form-control" id="idPass" name="pass" value="PEPE">
+                <input type="password" name="pass" class="form-control" id="idPass" name="pass" >
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" onclick="mostrarPass()" type="button">Mostrar</button>
                 </div>
@@ -124,27 +114,3 @@ include "../Componentes/footer.php"
 ?>
 
 
-		<!-- <div class="form-group">
-			<label for="idNombre">Nombre:</label>
-			<input type="text" name="nombre" class="form-control" id="idNombre">
-		</div>
-		<div class="form-group">
-			<label for="idCorreo">Correo Electronico:</label>
-			<input type="text" name="correo" class="form-control" id="idCorreo">
-		</div>
-		<div class="form-group">
-			<label for="idContacto">Contacto:</label>
-			<input type="text" name="contacto" placeholder="Vendedor, o persona de contacto" class="form-control" id="idContacto">
-		</div>
-		<div class="form-group">
-			<label for="idTel">Telefono:</label>
-			<input type="text" name="telefono" class="form-control" id="idTel">
-		</div>
-		<div class="form-group">
-			<label for="irRamo">Ramo que vende:</label>
-			<input type="text" name="ramo" class="form-control" placeholder="Libreria, informatica, formularios..."id="idRamo">
-		</div>
-		<div class="form-group">
-			<label for="idCuit">Cuit:</label>
-			<input type="text" name="cuit" placeholder="XXXXXXXXXXXX" class="form-control" id="idCuit">
-		</div> -->
