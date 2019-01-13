@@ -31,7 +31,7 @@ public function CloseConnection(){
 }
  
 /* Metodo que ejecuta un query sql y retorna un resultado si es un SELECT */
-public function Consultar($sql){
+public function ExecuteQuery($sql){
     $result = $this->conn->query($sql);
     return $result;
 }

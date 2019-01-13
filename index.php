@@ -38,7 +38,7 @@ $NewConn->CreateConnection();
 $query="SELECT user, pass FROM usuarios WHERE user = '$usuNombre' AND pass = '$usuPass'";
 
 
-$result = $NewConn->Consultar($query); //crea una variable, en la que ejecutas un metodo.
+$result = $NewConn->ExecuteQuery($query); //crea una variable, en la que ejecutas un metodo.
 if($result){ //Si existen resultados...
  
 $resultados=$NewConn->GetCountAffectedRows($result);

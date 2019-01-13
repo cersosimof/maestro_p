@@ -8,7 +8,14 @@ echo '  <script type="text/javascript">
 }
 
 include "../Componentes/header.php";
-include "../conexion.php";
+require "../classConnectionMySQL.php";
+
+// Creamos una nueva instancia de la clase que genera la conexion, y las distintas operaciones.
+$NewConn = new ConnectionMySQL();
+ 
+// Creamos una nueva conexion, le pone el mismo nombre.
+$NewConn->CreateConnection();
+
 
 
 if (isset($_GET["cargado"])) {
@@ -18,11 +25,13 @@ if (isset($_GET["cargado"])) {
 	$telefono = $_POST["telefono"];
 	$contacto = $_POST["contacto"];
 	$ramo = $_POST["ramo"];
-	$pass = md5($_POST["pass"]);
+    $pass = md5($_POST["pass"]);
+    
 
-$sqlCargarProveedores = "INSERT INTO proveeores (nombre, correo, telefono, contacto, ramo, cuit, pass, participo, cotizo) VALUES ('$nombre', '$correo', '$telefono', '$contacto', '$ramo', '$cuit', '$pass', 0, 0)";
+$query = "INSERT INTO proveeores (nombre, correo, telefono, contacto, ramo, cuit, pass, participo, cotizo) VALUES ('$nombre', '$correo', '$telefono', '$contacto', '$ramo', '$cuit', '$pass', 0, 0)";
+$result = $NewConn->ExecuteQuery($query); 
 
-        if(mysqli_query($link, $sqlCargarProveedores)) {
+        if($result) {
             //enviar el alert, y luego envia al inicio
             echo "<script>alert('El proveedor ", $nombre, " fue cargado correctamente, el mismo trabaja con los ramos ", $ramo,"'); window.location.href = 'principal.php'</script>"; 
         } else {
