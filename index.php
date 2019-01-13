@@ -21,27 +21,40 @@
 
 
 <?php
+require("classConnectionMySQL.php");
 
 if(isset($_POST["user"]) && isset($_POST["pass"])){
 $usuNombre = $_POST["user"];
 $usuPass = $_POST["pass"];
 
-include "conexion.php"; // Se conecta a la base de datos.
 
-$queryLogin = "SELECT user, pass FROM usuarios WHERE user = '$usuNombre' AND pass = '$usuPass'";
-$resultadoLogin = mysqli_query( $link, $queryLogin );
-$usuarioBase = mysqli_fetch_assoc($resultadoLogin); //ir a buscar
-$resultados = mysqli_num_rows($resultadoLogin);
+// Creamos una nueva instancia de la clase que genera la conexion, y las distintas operaciones.
+$NewConn = new ConnectionMySQL();
+ 
+// Creamos una nueva conexion, le pone el mismo nombre.
+$NewConn->CreateConnection();
 
-//Si existen resultados crear variable de sesion.-
-if($resultados == 1 ){
-  session_start();
-  $_SESSION["usuario"] = $usuNombre;
-  header("location: Vistas/principal.php");
-} else {
-  echo "el usuario no existe";
+
+$query="SELECT user, pass FROM usuarios WHERE user = '$usuNombre' AND pass = '$usuPass'";
+
+
+$result = $NewConn->Consultar($query); //crea una variable, en la que ejecutas un metodo.
+if($result){ //Si existen resultados...
+ 
+$resultados=$NewConn->GetCountAffectedRows($result);
+    if($resultados == 1 ){
+        session_start();
+        $_SESSION["usuario"] = $usuNombre;
+        header("location: Vistas/principal.php");
+    } else {
+        echo "el usuario no existe";
+    }
+     
+    $NewConn->SetFreeResult($result);
+ 
+}else{
+    echo "<h3>Error generando la consulta</h3>";
 }
 
-mysqli_close($link);
 };
 ?>
