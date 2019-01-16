@@ -9,30 +9,6 @@ echo '  <script type="text/javascript">
 }
 
 include "../Componentes/header.php";
-require "../conexion.php";
-
-	// if(isset($_GET["buscar"])){
-	// $tag = $_GET["buscar"];
-	// $selector = $_GET["selector"];
-	// $selector == 1 ? $selector = 'cuit' : $selector = 'nombre';
-
-	// $sqlBuscarProveedores = "SELECT idEmpresa, nombre, correo, telefono, ramo, cuit, contacto FROM proveeores WHERE $selector LIKE '%$tag%'";
-	// $cargarProveedor = mysqli_query($link, $sqlBuscarProveedores);
-	// $empresa = mysqli_fetch_assoc($cargarProveedor);
-	// }
-
-	// if(isset($_GET["actualizar"])){
-	// 	$idUpdate = $_GET["actualizar"];
-	// 	$sqlactualizarEmpresa = "DELETE FROM proveeores WHERE idEmpresa = '$id'";
-	// 	$eliminarEmpresa = mysqli_query($link, $sqlEliminarEmpresa);
-	// 		if (mysqli_affected_rows($link) >= 1) {
-	// 			echo "Empresa ", $id, " eliminada";
-	// 		} else {
-	// 			echo "no paso nada";
-	// 		}
-	// }
-
-mysqli_close($link);
 
 ?>
 
@@ -95,7 +71,7 @@ botonEnviar.onclick = function(e) {
 		e.preventDefault();
 				$.ajax({
 					type: 'POST',
-					url: '../buscarEmpresa.php',
+					url: '../AJAX/buscarEmpresa.php',
 					data: {
 						'selector': selector.value,
 						'empresa': buscador.value
@@ -116,6 +92,7 @@ botonEnviar.onclick = function(e) {
 
 </script>
 
+<?php include "../Componentes/footer.php"; ?>
 
 
 <!--   	<script type="text/javascript">
@@ -192,4 +169,3 @@ botonEnviar.onclick = function(e) {
 		}
   	</script> -->
 
-<?php include "../Componentes/footer.php"; ?>

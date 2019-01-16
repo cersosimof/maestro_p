@@ -1,14 +1,20 @@
 <?php
 
-require "../conexion.php";
+require "../classConnectionMySQL.php";
+$NewConn = new ConnectionMySQL(); .
 
-$nombreNuevo = $_POST["nombreNuevo"];
-$mailNuevo = $_POST["mailNuevo"];
+$NewConn->CreateConnection();
+
+$nombreNuevo = $_POST["nombreNuevo"];     
+$mailNuevo = $_POST["mailNuevo"];           
 $contactoNuevo = $_POST["contactoNuevo"];
 $telNuevo = $_POST["telNuevo"];
 $ramoNuevo = $_POST["ramoNuevo"];
-$cuitNuevo = $_POST["cuitNuevo"];
-$idEmpresaAActualizar = $_POST["idEmpresaAActualizar"];
+$cuitNuevo = $_POST["cuitNuevo"]; 
+
+$idEmpresaAActualizar = $_POST["idEmpresaAActualizar"]; //ID DE LA EMPRESA A ACTUALIZAR
+
+// // // // // // // // GUARDA LOS VALORES NUEVOS // // // // // // // // 
 
     $SQLTraerDatos = "SELECT idEmpresa, nombre, correo as mail, contacto,  telefono as tel, ramo, cuit FROM proveeores WHERE idEmpresa = '$idEmpresaAActualizar'";
     $ejecutarSQL = mysqli_query( $link , $SQLTraerDatos);

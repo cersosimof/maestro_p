@@ -1,16 +1,18 @@
 <?php 
+require "../classConnectionMySQL.php";
+$NewConn = new ConnectionMySQL();
+$NewConn->CreateConnection();
 
-	require "conexion.php";
 	$tag = $_POST["empresa"];
 	$selector = $_POST["selector"];
 
 	$selector == 1 ? $selector = 'cuit' : $selector = 'nombre';
 
 
-	$sql = "SELECT nombre FROM proveeores WHERE $selector LIKE '%$tag%'";
-	$cargarProveedor = mysqli_query($link, $sql);
+	$query = "SELECT nombre FROM proveeores WHERE $selector LIKE '%$tag%'";
+	$result = $NewConn->ExecuteQuery($query); 
 
-	if(($cantidad = mysqli_num_rows($cargarProveedor)) > 0){
+	if(($cantidad = $NewConn->GetCountAffectedRows($result)) > 0){
 		//SI HAY RESULTADOS
 		echo "OK";
 	} else { 
@@ -19,4 +21,4 @@
 	}
 
 	
-  ?>
+?>

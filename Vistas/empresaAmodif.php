@@ -1,20 +1,22 @@
 <?php 
 
 	include "../Componentes/header.php";
-	require "../conexion.php";
+	require "../classConnectionMySQL.php";
+	$NewConn = new ConnectionMySQL();
+	$NewConn->CreateConnection();
 
 	$tag = $_GET["buscar"];
 	$selector = $_GET["selector"];
 	$selector == 1 ? $selector = 'cuit' : $selector = 'nombre';
 
-	$sql = "SELECT idEmpresa, nombre, correo, telefono, ramo, cuit, contacto FROM proveeores WHERE $selector LIKE '%$tag%'";
-	$cargarProveedor = mysqli_query($link, $sql);
-	$datosEmpresa = mysqli_fetch_assoc($cargarProveedor);
+	$query = "SELECT idEmpresa, nombre, correo, telefono, ramo, cuit, contacto FROM proveeores WHERE $selector LIKE '%$tag%'";
+	$result = $NewConn->ExecuteQuery($query); 
+
+	$datosEmpresa = $result->fetch_assoc();
 
  ?>
 
 	<form style="margin: 3%">
-		<!-- 	<div class="row" id="mylist">	</div>	 -->
 		<div class="form-group">
 			<label for="idNombre">Nombre:</label>
 			<input type="text" name="nombre" class="form-control" value="<?php echo $datosEmpresa["nombre"]; ?>" id="idNombre">
