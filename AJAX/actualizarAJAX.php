@@ -2,7 +2,6 @@
 
 require "../classConnectionMySQL.php";
 $NewConn = new ConnectionMySQL(); 
-
 $NewConn->CreateConnection();
 
 $nombreNuevo = $_POST["nombreNuevo"];     

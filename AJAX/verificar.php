@@ -1,15 +1,17 @@
 <?php
-require "../conexion.php";
+require "../classConnectionMySQL.php";
+$NewConn = new ConnectionMySQL();
+$NewConn->CreateConnection();
 
 $numero = $_POST["numeroExpediente"];
 // $titulo = $_POST["titulo"];
 // $tag = $_POST["ramo"];
 
 
-$SQLbuscarExistente = "SELECT * FROM listadoexpediente WHERE nroExpediente = '$numero'";
-$buscarExistente = mysqli_query($link, $SQLbuscarExistente);
+$query = "SELECT * FROM listadoexpediente WHERE nroExpediente = '$numero'";
+$buscarExistente = $NewConn->ExecuteQuery($query);
 
-$modificadas = mysqli_num_rows($buscarExistente);
+$modificadas = $NewConn->GetCountAffectedRows($buscarExistente);
 
 
 if( $modificadas === 0){
