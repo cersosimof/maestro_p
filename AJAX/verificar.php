@@ -1,20 +1,53 @@
 <?php
-require "../conexion.php";
 
+require "../classConnectionMySQL.php";
+$NewConn = new ConnectionMySQL();
+$NewConn->CreateConnection();
 $numero = $_POST["numeroExpediente"];
+
+$query = "SELECT * FROM listadoexpediente WHERE nroExpediente = '$numero'";
+$buscarExistente = $NewConn->ExecuteQuery($query);
+$modificadas = $NewConn->GetCountAffectedRows($buscarExistente);
+
+
+//ejecutar consulta que traiga el ultimo expediente cargado, para recomendar.
+
+
+if( $modificadas === 0){
+  echo 0; //Si no existe el expediente, lo crea
+} else {
+  echo 1; //si existe el expediente
+}
+
+ ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php 
+
+
 // $titulo = $_POST["titulo"];
 // $tag = $_POST["ramo"];
 
 
-$SQLbuscarExistente = "SELECT * FROM listadoexpediente WHERE nroExpediente = '$numero'";
-$buscarExistente = mysqli_query($link, $SQLbuscarExistente);
-
-$modificadas = mysqli_num_rows($buscarExistente);
-
-
-if( $modificadas === 0){
-
-  //si no encuentra resultados los guarda en la base.
+//si no encuentra resultados los guarda en la base.
   // $sqlBuscarProveedores = "SELECT idEmpresa, nombre, correo, telefono, contacto FROM proveeores WHERE ramo LIKE '%$tag%'";
   // $cargarProveedor = mysqli_query($link, $sqlBuscarProveedores);
   // $cargarProveedorEnListado = mysqli_query($link, $sqlBuscarProveedores);
@@ -24,11 +57,4 @@ if( $modificadas === 0){
   //     $SQLCarga = "INSERT INTO `listadoexpediente` (`idListado`, `nroExpediente`, `titulo`, `idEmpresa`) VALUES (NULL, '$numero', '$titulo', '$empresa')";
   //     $SQLCargaP = mysqli_query($link, $SQLCarga);
   //   }
-
-    echo 0; //Si no existe el expediente, lo crea
-
-} else {
-  echo 1; //si existe el expediente
-}
-
- ?>
+?>

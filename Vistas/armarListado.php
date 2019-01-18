@@ -48,9 +48,11 @@ include "../Componentes/header.php";
 				success: function(data){
 				//0 => NO EXISTE EL EXPEDIENTE
 				// 1 => EXISTE EL EXPEDIENTE
+				console.log(data)
 					if(data == 0 ){
 						//document.querySelector("#numero").style.border = '2px solid green'
 						document.querySelector("#mensaje").innerHTML = "";
+						document.querySelector("#numero").style.border = '2px solid green';						
 						// window.location.href = 'listadoArmado.php?nroExpediente='+numero;
 					} else {
 						document.querySelector("#numero").style.border = '2px solid red';
