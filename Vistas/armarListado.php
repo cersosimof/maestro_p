@@ -46,9 +46,8 @@ include "../Componentes/header.php";
 			url: '../AJAX/verificar.php',
 			data:{'numeroExpediente': numero},
 				success: function(data){
-				//0 => NO EXISTE EL EXPEDIENTE
-				// 1 => EXISTE EL EXPEDIENTE
-				console.log(data)
+					//0 => NO EXISTE EL EXPEDIENTE
+					// 1 => EXISTE EL EXPEDIENTE
 					if(data == 0 ){
 						//document.querySelector("#numero").style.border = '2px solid green'
 						document.querySelector("#mensaje").innerHTML = "";
@@ -88,3 +87,6 @@ include "../Componentes/header.php";
 </script>
 
 <?php include "../Componentes/footer.php"; ?>
+
+
+//hola
