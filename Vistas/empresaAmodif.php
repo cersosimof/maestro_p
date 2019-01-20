@@ -73,7 +73,7 @@ document.querySelector("#botonUpdate").onclick = function(e){
 			},
 			success: function(res){
 				console.log(res)
-				if (res > 1) {
+				if (res >= 1) {
 					alert("Los nuevos datos ingresados en la empresa se actualizaron correctamente");
 						top.location.href = "principal.php"
 				} else {
