@@ -1,7 +1,9 @@
 <?php
 
 include "../Componentes/header.php";
-require "../conexion.php";
+require "../classConnectionMySQL.php";
+$NewConn = new ConnectionMySQL();
+$NewConn->CreateConnection();
 
 $nroExpediente = $_GET["nroExpediente"];
 $titulo = $_GET["titulo"];
@@ -11,7 +13,7 @@ $SQLArmadoTabla = "SELECT listadoexpediente.idListado, listadoexpediente.nroExpe
 FROM listadoexpediente
 LEFT JOIN proveeores ON listadoexpediente.idEmpresa = proveeores.idEmpresa
 WHERE listadoexpediente.nroExpediente = '$nroExpediente'";
-$armadoTabla = mysqli_query($link, $SQLArmadoTabla);
+$armadoTabla = $NewConn->ExecuteQuery($SQLArmadoTabla);
 
 //SQL de eliminacion de linea.
 // if(isset($_GET["borrar"])){
@@ -20,7 +22,7 @@ $armadoTabla = mysqli_query($link, $SQLArmadoTabla);
 // 		$resultado_eliminar = mysqli_query($link, $SQLEliminar);
 // }
 
-mysqli_close($link);
+// mysqli_close($link);
 ?>
 
 <h2> Nro. Expediente: <b> <?php echo $nroExpediente;  ?> - <?php echo $titulo;  ?> </b> - Empresas a invitar:</h2>
@@ -56,29 +58,32 @@ mysqli_close($link);
 	######## AGREGAR OTRA EMPRESA #########
 	####################################-->
 
-	<!-- <form action="#" method="POST" onkeypress="sugerencia()" id="submitAgregar">
+	<!-- <form action="#" method="POST" onkeypress="sugerencia()" id="submitAgregar"> 
 		<label>AGREGAR:
 			<input type="text" id="nombreEmpresa" placeholder="Nombre de la empresa"><br>
 		</label>
 			<input type="button" value="Agregar" onClick="agregarEmpresa()" id="botonAgregar">
 			<input type="hidden" id="nroExp" name="nroExpediente" value="<?php echo $nroExpediente; ?>">
-	</form><br> -->
+	</form> -->
 
-	<!-- <ul id="listaSug"> -->
+	<!-- <ul id="listaSug">	</ul> -->
 
-	<!-- </ul>
-	<div id="botonEnviarMail">
-		<button onclick="enviarMails()">GENERAR</button>
-	</div> -->
+<div  class='autocomplete'>
+<input type="text" class="form-control form-control-lg eliminarRecuadro"> </input>
 
+	<ul>
+		<li class='resaltar'>uno</li>
+		<li class='resaltar'>dos</li>
 
-
+	</ul>
+</div>
 
 	<!--###################################
 	################# SCRIPT ##############
 	####################################-->
 
 <script type="text/javascript">
+
 
 $(document).ready(function() {
 	// Cuando la página se carge completamente actualizamos los eventos para editar/añadir/borrar filas en la tabla Datos

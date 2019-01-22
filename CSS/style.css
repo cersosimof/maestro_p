@@ -15,3 +15,17 @@ color: blue;
 .anchoTotal {
 	display: block;
 }
+
+
+.autocomplete {
+	border: 1px solid #ced4da;
+	border-radius: 4px;
+}
+
+.eliminarRecuadro {
+	border: 0px solid red;
+}
+
+.resaltar:hover { 
+	background-color: rgb(181, 206, 252);
+  }
