@@ -69,12 +69,11 @@ $armadoTabla = $NewConn->ExecuteQuery($SQLArmadoTabla);
 	<!-- <ul id="listaSug">	</ul> -->
 
 <div  class='autocomplete'>
-<input type="text" class="form-control form-control-lg eliminarRecuadro"> </input>
+<input type="text" class="form-control form-control-lg eliminarRecuadro">
 
-	<ul>
+	<ul class='eliminaPunto'>
 		<li class='resaltar'>uno</li>
 		<li class='resaltar'>dos</li>
-
 	</ul>
 </div>
 

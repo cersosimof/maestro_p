@@ -20,6 +20,7 @@ color: blue;
 .autocomplete {
 	border: 1px solid #ced4da;
 	border-radius: 4px;
+	padding: 0%;
 }
 
 .eliminarRecuadro {
@@ -29,3 +30,12 @@ color: blue;
 .resaltar:hover { 
 	background-color: rgb(181, 206, 252);
   }
+
+ .eliminaPunto {
+	list-style-type: none;
+	padding: 0px;
+}
+
+.resaltar {
+	padding-left: 15px;
+}
