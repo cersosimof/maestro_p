@@ -8,6 +8,8 @@ $NewConn->CreateConnection();
 $nroExpediente = $_GET["nroExpediente"];
 $titulo = $_GET["titulo"];
 
+
+
 //SQL de creacion de la taba. trae todo lo que tiene ese expediente.
 $SQLArmadoTabla = "SELECT listadoexpediente.idListado, listadoexpediente.nroExpediente, proveeores.idEmpresa, proveeores.nombre, proveeores.correo, proveeores.telefono, proveeores.contacto, proveeores.cuit
 FROM listadoexpediente
@@ -27,6 +29,7 @@ $armadoTabla = $NewConn->ExecuteQuery($SQLArmadoTabla);
 
 <h2> Nro. Expediente: <b> <?php echo $nroExpediente;  ?> - <?php echo $titulo;  ?> </b> - Empresas a invitar:</h2>
 
+	<input type="hidden" value=<?php echo $nroExpediente;  ?> id="nroExpediente">
 	<table 	class=" table text-center">
 		<thead class="thead-dark">
 			<tr>
@@ -69,11 +72,11 @@ $armadoTabla = $NewConn->ExecuteQuery($SQLArmadoTabla);
 	<!-- <ul id="listaSug">	</ul> -->
 
 <div  class='autocomplete'>
-<input type="text" class="form-control form-control-lg eliminarRecuadro">
+<input type="text" class="form-control form-control-lg eliminarRecuadro" placeholder='¿Falta alguna empresa?, agreguela aqui!' id='idSug'>
 
-	<ul class='eliminaPunto'>
-		<li class='resaltar'>uno</li>
-		<li class='resaltar'>dos</li>
+	<ul class='eliminaPunto' id="sugg">
+		<!-- <li class='resaltar'>uno</li>
+		<li class='resaltar'>dos</li> -->
 	</ul>
 </div>
 
@@ -84,10 +87,10 @@ $armadoTabla = $NewConn->ExecuteQuery($SQLArmadoTabla);
 <script type="text/javascript">
 
 
-$(document).ready(function() {
-	// Cuando la página se carge completamente actualizamos los eventos para editar/añadir/borrar filas en la tabla Datos
-	borrarLinea();
-});
+// $(document).ready(function() {
+// 	 Cuando la página se carge completamente actualizamos los eventos para editar/añadir/borrar filas en la tabla Datos
+// 	borrarLinea();
+// });
 
 // function enviarMails(){
 // 			var NEM = document.getElementById("nroExpedienteMail").value;
@@ -101,62 +104,82 @@ $(document).ready(function() {
 // 			})
 // }
 
-function borrarLinea(){
-	var botonesEliminar = document.querySelectorAll(".botonEliminar")
-		console.log(botonesEliminar)
-	// .onclick = () => {
-	// 	alert("borrar")
-		// if(confirm("Desea eliminar esta empresa?")){
-		// $(this).parent("td").parent("tr").remove("tr");
-		// var idListado = document.getElementById("idListado").value;
-		// 	$.ajax({
-		// 		type: 'POST',
-		// 		url: 'eliminarEmpresa.php',
-		// 		data: {'idListado': idListado},
-		// 			success: function(data){
-		// 			}
-		// 	})
-		// };
-	// }
-}
 
-// Busca y agrega la linea.
-function agregarEmpresa(){
-  var nombreEmpresaBuscada = document.getElementById("nombreEmpresa").value;
-  var nroExp = document.getElementById("nroExp").value;
+
+document.querySelector("#idSug").onkeypress = () => { //ver de hacerlo cuando cambie la cantidad de letras que tenga el imput
+	
+	var nombreEmpresaBuscada = document.querySelector("#idSug").value;
+	var nroExp = document.querySelector("#nroExpediente").value;
+
     $.ajax({
       type: 'POST',
-      url: 'solicitud.php',
+      url: '../AJAX/agregaUnaEmpresa.php',
       data:{'nombreEmpresa': nombreEmpresaBuscada, 'nroExp': nroExp},
-        success: function(response){
-        $('#mytable').append(response).ready(borrarLinea());
+        success: function(data){
+			document.querySelector("#sugg").innerHTML = data;
 
         }
-    })
-  }
+	})
+
+
+}
+
+// function borrarLinea(){
+// 	var botonesEliminar = document.querySelectorAll(".botonEliminar")
+// 		console.log(botonesEliminar)
+// 	.onclick = () => {
+// 		alert("borrar")
+// 		if(confirm("Desea eliminar esta empresa?")){
+// 		$(this).parent("td").parent("tr").remove("tr");
+// 		var idListado = document.getElementById("idListado").value;
+// 			$.ajax({
+// 				type: 'POST',
+// 				url: 'eliminarEmpresa.php',
+// 				data: {'idListado': idListado},
+// 					success: function(data){
+// 					}
+// 			})
+// 		};
+// 	}
+// }
+
+// Busca y agrega la linea.
+// function agregarEmpresa(){
+//   var nombreEmpresaBuscada = document.getElementById("nombreEmpresa").value;
+//   var nroExp = document.getElementById("nroExp").value;
+//     $.ajax({
+//       type: 'POST',
+//       url: 'solicitud.php',
+//       data:{'nombreEmpresa': nombreEmpresaBuscada, 'nroExp': nroExp},
+//         success: function(response){
+//         $('#mytable').append(response).ready(borrarLinea());
+
+//         }
+//     })
+//   }
 
 // Muestra las sugerencias de empresas con ese nombre.
-function sugerencia(){
-	var nombreEmpresaBuscada2 = document.getElementById("nombreEmpresa").value;
-	var nroExp2 = document.getElementById("nroExp").value;
-		$.ajax({
-		//buscar en la base de datos, la cantidad de letras ingresada en NOMBRE DE EMPRESA
-			type: 'POST',
-			url: 'search2.php',
-			data:{'empresa2': nombreEmpresaBuscada2, 'nroExp': nroExp2},
-				success: function(response){
-				// imprime las alternativas en pantalla
-				$('#listaSug').html(response);
-					$('li').click(function(){
-							var select = $(this)["0"].innerHTML
-							var myJSON = JSON.stringify(select);
-							var splitEmpresa = select.split(" ");
-							var empresaNombre = splitEmpresa["0"];
-							document.getElementById("nombreEmpresa").value = empresaNombre;
-					})
-				}
-		})
-}
+// function sugerencia(){
+// 	var nombreEmpresaBuscada2 = document.getElementById("nombreEmpresa").value;
+// 	var nroExp2 = document.getElementById("nroExp").value;
+// 		$.ajax({
+// 		//buscar en la base de datos, la cantidad de letras ingresada en NOMBRE DE EMPRESA
+// 			type: 'POST',
+// 			url: 'search2.php',
+// 			data:{'empresa2': nombreEmpresaBuscada2, 'nroExp': nroExp2},
+// 				success: function(response){
+// 				// imprime las alternativas en pantalla
+// 				$('#listaSug').html(response);
+// 					$('li').click(function(){
+// 							var select = $(this)["0"].innerHTML
+// 							var myJSON = JSON.stringify(select);
+// 							var splitEmpresa = select.split(" ");
+// 							var empresaNombre = splitEmpresa["0"];
+// 							document.getElementById("nombreEmpresa").value = empresaNombre;
+// 					})
+// 				}
+// 		})
+// }
   	</script>
 
 <?php

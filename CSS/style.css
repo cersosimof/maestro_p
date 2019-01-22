@@ -23,6 +23,10 @@ color: blue;
 	padding: 0%;
 }
 
+.eliminarRecuadro:focus {
+	border: 0px solid red;	
+}
+
 .eliminarRecuadro {
 	border: 0px solid red;
 }
@@ -33,7 +37,7 @@ color: blue;
 
  .eliminaPunto {
 	list-style-type: none;
-	padding: 0px;
+	padding: 0px; /*mantiene la empresa que salio del ajax con una distancia del borde */
 }
 
 .resaltar {
