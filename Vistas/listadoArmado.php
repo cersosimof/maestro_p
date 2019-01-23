@@ -106,23 +106,34 @@ $armadoTabla = $NewConn->ExecuteQuery($SQLArmadoTabla);
 
 
 
-document.querySelector("#idSug").onkeypress = () => { //ver de hacerlo cuando cambie la cantidad de letras que tenga el imput
-	
+function clickAgregar(){
+		
+}
+
+
+
+document.querySelector("#idSug").onkeyup = () => { //ver de hacerlo cuando cambie la cantidad de letras que tenga el imput
+
 	var nombreEmpresaBuscada = document.querySelector("#idSug").value;
 	var nroExp = document.querySelector("#nroExpediente").value;
+
+	var conteo = nombreEmpresaBuscada.length;
 
     $.ajax({
       type: 'POST',
       url: '../AJAX/agregaUnaEmpresa.php',
       data:{'nombreEmpresa': nombreEmpresaBuscada, 'nroExp': nroExp},
         success: function(data){
-			document.querySelector("#sugg").innerHTML = data;
+			if(conteo == "" || 0) { //para que arranque a buscar en la segunda opcion (ver algo mejor)
+				document.querySelector("#sugg").innerHTML = "";
+			} else {
+				document.querySelector("#sugg").innerHTML = data;
+			}
 
         }
 	})
-
-
 }
+
 
 // function borrarLinea(){
 // 	var botonesEliminar = document.querySelectorAll(".botonEliminar")
@@ -180,6 +191,7 @@ document.querySelector("#idSug").onkeypress = () => { //ver de hacerlo cuando ca
 // 				}
 // 		})
 // }
+
   	</script>
 
 <?php

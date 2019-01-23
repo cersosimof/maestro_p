@@ -88,5 +88,3 @@ include "../Componentes/header.php";
 
 <?php include "../Componentes/footer.php"; ?>
 
-
-//hola

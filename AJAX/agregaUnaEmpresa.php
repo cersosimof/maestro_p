@@ -9,11 +9,11 @@ $nroExp = $_POST['nroExp'];
 
 
 
-$sqlBuscaEmpresa = "SELECT nombre FROM proveeores WHERE nombre LIKE '$tag%' LIMIT 0,3";
+$sqlBuscaEmpresa = "SELECT nombre, cuit FROM proveeores WHERE nombre LIKE '%$tag%' LIMIT 0,3";
 $cargarProveedor = $NewConn->ExecuteQuery($sqlBuscaEmpresa);
 
     while($empresa = $cargarProveedor->fetch_assoc()){
-        echo "<li class='resaltar'>", $empresa["nombre"], "</li>";
+        echo "<li class='resaltar' onclick='clickAgregar()'>", $empresa["nombre"], " - CUIT: " , $empresa["cuit"],  "</li>";
     }
 
 

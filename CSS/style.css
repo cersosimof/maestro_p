@@ -16,19 +16,22 @@ color: blue;
 	display: block;
 }
 
-
 .autocomplete {
 	border: 1px solid #ced4da;
 	border-radius: 4px;
-	padding: 0%;
+
 }
 
-.eliminarRecuadro:focus {
-	border: 0px solid red;	
+.eliminarRecuadro:focus { /*elimina el recuadro azul del input*/
+		border-color: #cccccc;
+		-webkit-box-shadow: none;
+		box-shadow: none;
 }
 
 .eliminarRecuadro {
-	border: 0px solid red;
+	border: 0px;
+	padding-top: 3%;
+	padding-bottom: 2%;
 }
 
 .resaltar:hover { 
@@ -38,6 +41,7 @@ color: blue;
  .eliminaPunto {
 	list-style-type: none;
 	padding: 0px; /*mantiene la empresa que salio del ajax con una distancia del borde */
+	border: 0px;
 }
 
 .resaltar {
