@@ -71,8 +71,8 @@ $armadoTabla = $NewConn->ExecuteQuery($SQLArmadoTabla);
 
 	<!-- <ul id="listaSug">	</ul> -->
 
-<div  class='autocomplete'>
-<input type="text" class="form-control form-control-lg eliminarRecuadro" placeholder='¿Falta alguna empresa?, agreguela aqui!' id='idSug'>
+<div  id='autocomplete'>
+<input type="text" autocomplete='off' class="form-control form-control-lg eliminarRecuadro" placeholder='¿Falta alguna empresa?, agreguela aqui!' id='idSug'>
 
 	<ul class='eliminaPunto' id="sugg">
 		<!-- <li class='resaltar'>uno</li>
@@ -104,19 +104,32 @@ $armadoTabla = $NewConn->ExecuteQuery($SQLArmadoTabla);
 // 			})
 // }
 
+function enumerarArray() {
+	var clickAgregarArray = document.querySelectorAll('.clickAgregar');
 
 
-function clickAgregar(){
-		
+	for (var i = 0; i < clickAgregarArray.length; i++) {
+		var select = clickAgregarArray[i].id;
+			clickAgregarArray[i].onclick = () => {
+			$.ajax({
+			type: 'POST',
+			url: '../AJAX/filaGenerada.php',
+			data:{ 'select' : select },
+				success: function(data){
+					$('#mytable').append(data);
+					document.querySelector("#idSug").value = "";
+					document.querySelector("#autocomplete").innerHTML = '<input type="text" class="form-control form-control-lg eliminarRecuadro" placeholder="¿Falta alguna empresa?, agreguela aqui!" id="idSug"><ul class="eliminaPunto" id="sugg"></ul>'
+					}
+			})
+		}
+	}
 }
 
-
-
+//ENVOLVER ESTO EN UNA FUNCION ###################################
 document.querySelector("#idSug").onkeyup = () => { //ver de hacerlo cuando cambie la cantidad de letras que tenga el imput
 
 	var nombreEmpresaBuscada = document.querySelector("#idSug").value;
 	var nroExp = document.querySelector("#nroExpediente").value;
-
 	var conteo = nombreEmpresaBuscada.length;
 
     $.ajax({
@@ -128,6 +141,7 @@ document.querySelector("#idSug").onkeyup = () => { //ver de hacerlo cuando cambi
 				document.querySelector("#sugg").innerHTML = "";
 			} else {
 				document.querySelector("#sugg").innerHTML = data;
+				enumerarArray();
 			}
 
         }
@@ -154,43 +168,6 @@ document.querySelector("#idSug").onkeyup = () => { //ver de hacerlo cuando cambi
 // 	}
 // }
 
-// Busca y agrega la linea.
-// function agregarEmpresa(){
-//   var nombreEmpresaBuscada = document.getElementById("nombreEmpresa").value;
-//   var nroExp = document.getElementById("nroExp").value;
-//     $.ajax({
-//       type: 'POST',
-//       url: 'solicitud.php',
-//       data:{'nombreEmpresa': nombreEmpresaBuscada, 'nroExp': nroExp},
-//         success: function(response){
-//         $('#mytable').append(response).ready(borrarLinea());
-
-//         }
-//     })
-//   }
-
-// Muestra las sugerencias de empresas con ese nombre.
-// function sugerencia(){
-// 	var nombreEmpresaBuscada2 = document.getElementById("nombreEmpresa").value;
-// 	var nroExp2 = document.getElementById("nroExp").value;
-// 		$.ajax({
-// 		//buscar en la base de datos, la cantidad de letras ingresada en NOMBRE DE EMPRESA
-// 			type: 'POST',
-// 			url: 'search2.php',
-// 			data:{'empresa2': nombreEmpresaBuscada2, 'nroExp': nroExp2},
-// 				success: function(response){
-// 				// imprime las alternativas en pantalla
-// 				$('#listaSug').html(response);
-// 					$('li').click(function(){
-// 							var select = $(this)["0"].innerHTML
-// 							var myJSON = JSON.stringify(select);
-// 							var splitEmpresa = select.split(" ");
-// 							var empresaNombre = splitEmpresa["0"];
-// 							document.getElementById("nombreEmpresa").value = empresaNombre;
-// 					})
-// 				}
-// 		})
-// }
 
   	</script>
 
