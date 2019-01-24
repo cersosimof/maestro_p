@@ -19,7 +19,6 @@ color: blue;
 #autocomplete {
 	border: 1px solid #ced4da;
 	border-radius: 4px;
-
 }
 
 .eliminarRecuadro:focus { /*elimina el recuadro azul del input*/
@@ -30,8 +29,7 @@ color: blue;
 
 .eliminarRecuadro {
 	border: 0px;
-	padding-top: 3%;
-	padding-bottom: 2%;
+
 }
 
 .resaltar:hover { 
@@ -46,4 +44,8 @@ color: blue;
 
 .resaltar {
 	padding-left: 15px;
+}
+
+#sugg {
+	margin-bottom: 0px;
 }
