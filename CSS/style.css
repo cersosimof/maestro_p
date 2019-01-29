@@ -22,14 +22,13 @@ color: blue;
 }
 
 .eliminarRecuadro:focus { /*elimina el recuadro azul del input*/
-		border-color: #cccccc;
+		/* border-color: #cccccc; */
 		-webkit-box-shadow: none;
 		box-shadow: none;
 }
 
 .eliminarRecuadro {
 	border: 0px;
-
 }
 
 .resaltar:hover { 
@@ -49,3 +48,4 @@ color: blue;
 #sugg {
 	margin-bottom: 0px;
 }
+

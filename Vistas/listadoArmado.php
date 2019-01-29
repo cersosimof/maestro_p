@@ -48,7 +48,7 @@ $armadoTabla = $NewConn->ExecuteQuery($SQLArmadoTabla);
 			    <td align="center"><?php echo $tabla["correo"]; ?></td>
 			    <td align="center"><?php echo $tabla["telefono"]; ?></td>
 			    <td align="center"><?php echo $tabla["contacto"]; ?></td>
-			    <td align="center" class='botonEliminar'>DELETE</td>
+			    <td align="center" class='botonEliminar' id="<?php echo $tabla["idEmpresa"]; ?>">DELETE</td>
 
 	  		</tr>
 				<input type="hidden" id="idListado" value="<?php echo $tabla['idListado']; ?>">
@@ -84,46 +84,21 @@ $armadoTabla = $NewConn->ExecuteQuery($SQLArmadoTabla);
 	################# SCRIPT ##############
 	####################################-->
 
+<script src='../JS/jquery.js'> </script>
 <script type="text/javascript">
 
-
-// $(document).ready(function() {
-// 	 Cuando la página se carge completamente actualizamos los eventos para editar/añadir/borrar filas en la tabla Datos
-// 	borrarLinea();
-// });
-
-// function enviarMails(){
-// 			var NEM = document.getElementById("nroExpedienteMail").value;
-// 			$.ajax({
-// 				type: 'POST',
-// 				url: 'enviarMail.php',
-// 				data: {'nroExpedienteMail': NEM},
-// 					success: function(data){
-// 					location.href = "mailto:?subject= Nro. Exp." + NEM + "&bcc="+data+"";
-// 					}
-// 			})
-// }
-
-function enumerarArray() {
-	var clickAgregarArray = document.querySelectorAll('.clickAgregar');
-
-
-	for (var i = 0; i < clickAgregarArray.length; i++) {
-		var select = clickAgregarArray[i].id;
-			clickAgregarArray[i].onclick = () => {
-			$.ajax({
-			type: 'POST',
-			url: '../AJAX/filaGenerada.php',
-			data:{ 'select' : select },
-				success: function(data){
-					$('#mytable').append(data);
-					document.querySelector("#idSug").value = "";
-					document.querySelector("#autocomplete").innerHTML = '<input type="text" class="form-control form-control-lg eliminarRecuadro" placeholder="¿Falta alguna empresa?, agreguela aqui!" id="idSug"><ul class="eliminaPunto" id="sugg"></ul>'
-					}
-			})
-		}
-	}
+function vaciarSugg() {
+	document.querySelector("#idSug").value = "";
+	document.querySelector("#sugg").innerHTML = "";
 }
+
+// AL HACER CLICK POR FUERA DEL INPUT AUTOCOMPLETE EJECUTA LA FUNCION VACIARSUGG.
+var specifiedElement = document.getElementById('#autocomplete');
+document.addEventListener('click', function(event) {
+	if((event.path[1].id) !== 'autocomplete') {
+		vaciarSugg();
+	}
+});
 
 //ENVOLVER ESTO EN UNA FUNCION ###################################
 document.querySelector("#idSug").onkeyup = () => { //ver de hacerlo cuando cambie la cantidad de letras que tenga el imput
@@ -132,42 +107,63 @@ document.querySelector("#idSug").onkeyup = () => { //ver de hacerlo cuando cambi
 	var nroExp = document.querySelector("#nroExpediente").value;
 	var conteo = nombreEmpresaBuscada.length;
 
-    $.ajax({
-      type: 'POST',
-      url: '../AJAX/agregaUnaEmpresa.php',
-      data:{'nombreEmpresa': nombreEmpresaBuscada, 'nroExp': nroExp},
-        success: function(data){
-			if(conteo == "" || 0) { //para que arranque a buscar en la segunda opcion (ver algo mejor)
-				document.querySelector("#sugg").innerHTML = "";
+	// VER CUANTOS CARACTERES TIENE EL INPUT
+	$.ajax({
+	type: 'POST',
+	url: '../AJAX/agregaUnaEmpresa.php',
+	data:{'nombreEmpresa': nombreEmpresaBuscada, 'nroExp': nroExp},
+		success: function(data){
+			if(conteo == 0) { //para que arranque a buscar en la segunda opcion (ver algo mejor)
+				vaciarSugg();;
 			} else {
-				document.querySelector("#sugg").innerHTML = data;
-				enumerarArray();
+				document.querySelector("#sugg").innerHTML = data; //TRAE LOS RESULTADOS DEL QUERY CON EL VALOR QUE SE LE ENVIO
+				enumerarArray(); //FUNCION QUE ENUMERA LOS RESULTADOS Y LE PONE LA OPCION DE CLICK
 			}
 
-        }
+		}
 	})
 }
 
+//FUNCION QUE ENUMERA LOS RESULTADOS Y LE PONE LA OPCION DEL CLICK.
+function enumerarArray() {
+	var clickAgregarArray = document.querySelectorAll('.clickAgregar');
 
-// function borrarLinea(){
-// 	var botonesEliminar = document.querySelectorAll(".botonEliminar")
-// 		console.log(botonesEliminar)
-// 	.onclick = () => {
-// 		alert("borrar")
-// 		if(confirm("Desea eliminar esta empresa?")){
-// 		$(this).parent("td").parent("tr").remove("tr");
-// 		var idListado = document.getElementById("idListado").value;
-// 			$.ajax({
-// 				type: 'POST',
-// 				url: 'eliminarEmpresa.php',
-// 				data: {'idListado': idListado},
-// 					success: function(data){
-// 					}
-// 			})
-// 		};
-// 	}
-// }
+	for (var i = 0; i < clickAgregarArray.length; i++) {
+		var select = clickAgregarArray[i].id;
+			clickAgregarArray[i].onclick = () => { //click en la opcion agrega la linea.
+			$.ajax({
+			type: 'POST',
+			url: '../AJAX/filaGenerada.php',
+			data:{ 'select' : select },
+				success: function(data){
+					$('#mytable').append(data);
+					vaciarSugg();
+				}
+			})
+		}
+	}
+}
 
+
+function borrarLinea(){
+	var botonesEliminar = document.querySelectorAll(".botonEliminar")
+
+	for (var i = 0; i < botonesEliminar.length; i++) {
+		botonesEliminar[i].onclick = (e) => {
+			console.log(e.toElement.id)
+			$.ajax({
+			type: 'POST',
+			url: '../AJAX/eliminarEmpresa.php',
+			data:{ 'aEliminar' : e.toElement.id, 'listado' : document.querySelector('#nroExpedienteMail').value },
+				success: function(data){
+				console.log(data)
+				}
+			})
+		}
+	}
+}
+
+borrarLinea();
 
   	</script>
 

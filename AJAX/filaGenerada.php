@@ -15,7 +15,7 @@ $cargarProveedor = $NewConn->ExecuteQuery($sqlBuscarProveedores);
 		    <td align="center"><?php echo $resultado["correo"]; ?></td>
 		    <td align="center"><?php echo $resultado["telefono"]; ?></td>
 			<td align="center"><?php echo $resultado["contacto"]; ?></td>
-			<td align="center" >DELETE</td>
+			<td align="center" class="botonEliminar" id="<?php echo $resultado["idEmpresa"]; ?>">DELETE</td>
 </tr>
 		<?php } ?>
 
