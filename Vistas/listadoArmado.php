@@ -1,31 +1,9 @@
 <?php
-
 include "../Componentes/header.php";
-require "../classConnectionMySQL.php";
-$NewConn = new ConnectionMySQL();
-$NewConn->CreateConnection();
-
 $nroExpediente = $_GET["nroExpediente"];
 $titulo = $_GET["titulo"];
-
-
-
-//SQL de creacion de la taba. trae todo lo que tiene ese expediente.
-$SQLArmadoTabla = "SELECT listadoexpediente.idListado, listadoexpediente.nroExpediente, proveeores.idEmpresa, proveeores.nombre, proveeores.correo, proveeores.telefono, proveeores.contacto, proveeores.cuit
-FROM listadoexpediente
-LEFT JOIN proveeores ON listadoexpediente.idEmpresa = proveeores.idEmpresa
-WHERE listadoexpediente.nroExpediente = '$nroExpediente'";
-$armadoTabla = $NewConn->ExecuteQuery($SQLArmadoTabla);
-
-//SQL de eliminacion de linea.
-// if(isset($_GET["borrar"])){
-// 		$eliminado = $_GET["borrar"];
-// 		$SQLEliminar = "DELETE FROM listadoexpediente WHERE idListado = $eliminado";
-// 		$resultado_eliminar = mysqli_query($link, $SQLEliminar);
-// }
-
-// mysqli_close($link);
 ?>
+
 
 <h2> Nro. Expediente: <b> <?php echo $nroExpediente;  ?> - <?php echo $titulo;  ?> </b> - Empresas a invitar:</h2>
 
@@ -41,51 +19,41 @@ $armadoTabla = $NewConn->ExecuteQuery($SQLArmadoTabla);
 	 		</tr>
 	 	</thead>
 	 	<tbody id="mytable">
-	 		<tr>
-				<?php
-				while($tabla = mysqli_fetch_assoc($armadoTabla)){ ?>
-			    <td align="center"><?php echo $tabla["nombre"]; ?></td>
-			    <td align="center"><?php echo $tabla["correo"]; ?></td>
-			    <td align="center"><?php echo $tabla["telefono"]; ?></td>
-			    <td align="center"><?php echo $tabla["contacto"]; ?></td>
-			    <td align="center" class='botonEliminar' id="<?php echo $tabla["idEmpresa"]; ?>">DELETE</td>
 
-	  		</tr>
-				<input type="hidden" id="idListado" value="<?php echo $tabla['idListado']; ?>">
-				<input type="hidden" id="nroExpedienteMail" value="<?php echo $nroExpediente; ?>">
-	  		<?php } ?>
-	  	</tbody>
+		  </tbody>
+		<input type="hidden" id="titulo" value="<?php echo $titulo; ?>">
+		<input type="hidden" id="nroExpedienteMail" value="<?php echo $nroExpediente; ?>">
+
 	</table>
 
-	<!--###################################
-	######## AGREGAR OTRA EMPRESA #########
-	####################################-->
 
-	<!-- <form action="#" method="POST" onkeypress="sugerencia()" id="submitAgregar"> 
-		<label>AGREGAR:
-			<input type="text" id="nombreEmpresa" placeholder="Nombre de la empresa"><br>
-		</label>
-			<input type="button" value="Agregar" onClick="agregarEmpresa()" id="botonAgregar">
-			<input type="hidden" id="nroExp" name="nroExpediente" value="<?php echo $nroExpediente; ?>">
-	</form> -->
-
-	<!-- <ul id="listaSug">	</ul> -->
-
+<!-- AGREGA UNA NUEVA EMPRESA -->
 <div  id='autocomplete'>
 <input type="text" autocomplete='off' class="form-control form-control-lg eliminarRecuadro" placeholder='¿Falta alguna empresa?, agreguela aqui!' id='idSug'>
-
 	<ul class='eliminaPunto' id="sugg">
-		<!-- <li class='resaltar'>uno</li>
-		<li class='resaltar'>dos</li> -->
 	</ul>
 </div>
-
-	<!--###################################
-	################# SCRIPT ##############
-	####################################-->
+<!-- AGREGA UNA NUEVA EMPRESA -->
 
 <script src='../JS/jquery.js'> </script>
 <script type="text/javascript">
+
+function armarCuadro() {
+	var nroExp = document.querySelector('#nroExpedienteMail').value
+
+	$.ajax({
+	type: 'POST',
+	url: '../AJAX/armarCuadro.php',
+	data:{'nroExp': nroExp},
+		success: function(data){
+				document.querySelector('#mytable').innerHTML = data;
+		}
+	})
+}
+
+armarCuadro();
+
+
 
 function vaciarSugg() {
 	document.querySelector("#idSug").value = "";
@@ -99,6 +67,8 @@ document.addEventListener('click', function(event) {
 		vaciarSugg();
 	}
 });
+
+
 
 //ENVOLVER ESTO EN UNA FUNCION ###################################
 document.querySelector("#idSug").onkeyup = () => { //ver de hacerlo cuando cambie la cantidad de letras que tenga el imput
@@ -124,6 +94,8 @@ document.querySelector("#idSug").onkeyup = () => { //ver de hacerlo cuando cambi
 	})
 }
 
+
+
 //FUNCION QUE ENUMERA LOS RESULTADOS Y LE PONE LA OPCION DEL CLICK.
 function enumerarArray() {
 	var clickAgregarArray = document.querySelectorAll('.clickAgregar');
@@ -134,9 +106,9 @@ function enumerarArray() {
 			$.ajax({
 			type: 'POST',
 			url: '../AJAX/filaGenerada.php',
-			data:{ 'select' : select },
+			data:{ 'select' : select, 'nroExp' : document.querySelector("#nroExpediente").value, 'titulo' : document.querySelector("#titulo").value },
 				success: function(data){
-					$('#mytable').append(data);
+					armarCuadro();
 					vaciarSugg();
 				}
 			})
@@ -148,24 +120,33 @@ function enumerarArray() {
 function borrarLinea(){
 	var botonesEliminar = document.querySelectorAll(".botonEliminar")
 
+
 	for (var i = 0; i < botonesEliminar.length; i++) {
+		console.log('uno')
 		botonesEliminar[i].onclick = (e) => {
-			console.log(e.toElement.id)
-			$.ajax({
-			type: 'POST',
-			url: '../AJAX/eliminarEmpresa.php',
-			data:{ 'aEliminar' : e.toElement.id, 'listado' : document.querySelector('#nroExpedienteMail').value },
-				success: function(data){
-				console.log(data)
-				}
-			})
+			if(confirm('Desea borrar la empresa seleccionada?')){
+				$.ajax({
+				type: 'POST',
+				url: '../AJAX/eliminarEmpresa.php',
+				data:{ 'aEliminar' : e.toElement.id, 'listado' : document.querySelector('#nroExpedienteMail').value },
+					success: function(data){
+					alert(data)
+					armarCuadro();
+					}
+				})
+			} else {
+				alert('La empresa continua en el listado')
+			}
+
 		}
 	}
 }
 
-borrarLinea();
+$( document ).ready(function() {
+    borrarLinea();
+});
 
-  	</script>
+</script>
 
 <?php
 include "../Componentes/footer.php";

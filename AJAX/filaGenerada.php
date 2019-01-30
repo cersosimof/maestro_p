@@ -5,7 +5,11 @@ $NewConn = new ConnectionMySQL();
 $NewConn->CreateConnection();
 
 $select = $_POST['select'];
+$nroExp = $_POST['nroExp'];
+$titulo = $_POST['titulo'];
 
+$sqlInsertar = "INSERT INTO `listadoexpediente`(`idListado`, `nroExpediente`, `titulo`, `idEmpresa`) VALUES (NULL, '$nroExp', '$titulo', '$select')";
+$ejecutar = $NewConn->ExecuteQuery($sqlInsertar);
 
 $sqlBuscarProveedores = "SELECT idEmpresa, nombre, correo, telefono, contacto FROM proveeores WHERE idEmpresa LIKE '$select'";
 $cargarProveedor = $NewConn->ExecuteQuery($sqlBuscarProveedores);
