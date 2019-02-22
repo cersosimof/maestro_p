@@ -1,13 +1,15 @@
 <?php
 
 require "../classConnectionMySQL.php";
-$NewConn = new ConnectionMySQL();
-$NewConn->CreateConnection();
+$instance = ConnectDb::getInstance();
+$conn = $instance->getConnection();
+
+
 $numero = $_POST["numeroExpediente"];
 
 $query = "SELECT * FROM listadoexpediente WHERE nroExpediente = '$numero'";
-$buscarExistente = $NewConn->ExecuteQuery($query);
-$modificadas = $NewConn->GetCountAffectedRows($buscarExistente);
+$buscarExistente = $instance->ExecuteQuery($query);
+$modificadas = $instance->GetCountAffectedRows($buscarExistente);
 
 
 //ejecutar consulta que traiga el ultimo expediente cargado, para recomendar.

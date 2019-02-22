@@ -1,8 +1,8 @@
 <?php
 
 require "../classConnectionMySQL.php";
-$NewConn = new ConnectionMySQL(); 
-$NewConn->CreateConnection();
+$instance = ConnectDb::getInstance();
+$conn = $instance->getConnection();
 
 $nombreNuevo = $_POST["nombreNuevo"];     
 $mailNuevo = $_POST["mailNuevo"];           
@@ -16,7 +16,7 @@ $idEmpresaAActualizar = $_POST["idEmpresaAActualizar"]; //ID DE LA EMPRESA A ACT
 // // // // // // // // GUARDA LOS VALORES NUEVOS // // // // // // // // 
 
     $SQLTraerDatos = "SELECT idEmpresa, nombre, correo as mail, contacto,  telefono as tel, ramo, cuit FROM proveeores WHERE idEmpresa = '$idEmpresaAActualizar'";
-    $result = $NewConn->ExecuteQuery($SQLTraerDatos);
+    $result = $instance->ExecuteQuery($SQLTraerDatos);
     $datosDB = $result->fetch_assoc();
 
 actualizarValores($datosDB["nombre"], $nombreNuevo, $idEmpresaAActualizar, "nombre");
@@ -27,11 +27,11 @@ actualizarValores($datosDB["ramo"], $ramoNuevo, $idEmpresaAActualizar, "ramo");
 actualizarValores($datosDB["cuit"], $cuitNuevo, $idEmpresaAActualizar, "cuit");
 
 function actualizarValores($valorAntiguo, $valorNuevo, $idEmpresaAActualizar, $columnaDB){
-  global $NewConn; //Palabra clave global, permite usar la variable de afuera de la funcion.
+  global $instance; //Palabra clave global, permite usar la variable de afuera de la funcion.
 
   if ($valorAntiguo !== $valorNuevo) {
     $SQLmodificar =  "UPDATE proveeores SET $columnaDB = '$valorNuevo' WHERE idEmpresa = $idEmpresaAActualizar" ;
-    $result2 = $NewConn->ExecuteQuery($SQLmodificar);;
+    $result2 = $instance->ExecuteQuery($SQLmodificar);;
     echo '1';
   } 
 }

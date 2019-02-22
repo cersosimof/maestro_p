@@ -1,8 +1,8 @@
 <?php 
 
 require "../classConnectionMySQL.php";
-$NewConn = new ConnectionMySQL();
-$NewConn->CreateConnection();
+$instance = ConnectDb::getInstance();
+$conn = $instance->getConnection();
 
 	$tag = $_POST["empresa"];
 	$selector = $_POST["selector"];
@@ -11,9 +11,9 @@ $NewConn->CreateConnection();
 
 
 	$query = "SELECT nombre FROM proveeores WHERE $selector LIKE '%$tag%'";
-	$result = $NewConn->ExecuteQuery($query); 
+	$result = $instance->ExecuteQuery($query); 
 
-	if(($cantidad = $NewConn->GetCountAffectedRows($result)) > 0){
+	if(($cantidad = $instance->GetCountAffectedRows($result)) > 0){
 		//SI HAY RESULTADOS
 		echo "OK";
 	} else { 

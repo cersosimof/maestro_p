@@ -82,6 +82,10 @@ $result = $instance->ExecuteQuery($query);
 	</form>
 </div>
 
+
+
+
+
 <script> //MOVER SCRIPTS
 function mostrarPass() {
     switch(document.querySelector('#idPass').type) {
@@ -105,6 +109,10 @@ function borrarGuion() {
     }
     document.querySelector('#idCuit').value = cuitSinGuiones.join("");
 }
+
+
+
+
 </script>
 
 <?php

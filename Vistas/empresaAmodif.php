@@ -2,15 +2,15 @@
 
 	include "../Componentes/header.php";
 	require "../classConnectionMySQL.php";
-	$NewConn = new ConnectionMySQL();
-	$NewConn->CreateConnection();
+	$instance = ConnectDb::getInstance();
+	$conn = $instance->getConnection();
 
 	$tag = $_GET["buscar"];
 	$selector = $_GET["selector"];
 	$selector == 1 ? $selector = 'cuit' : $selector = 'nombre';
 
 	$query = "SELECT idEmpresa, nombre, correo, telefono, ramo, cuit, contacto FROM proveeores WHERE $selector LIKE '%$tag%'";
-	$result = $NewConn->ExecuteQuery($query); 
+	$result = $instance->ExecuteQuery($query); 
 
 	$datosEmpresa = $result->fetch_assoc();
 
