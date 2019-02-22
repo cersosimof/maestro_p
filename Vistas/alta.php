@@ -1,21 +1,10 @@
 <?php
-session_start();
-if (!isset($_SESSION['usuario'])){
-echo '  <script type="text/javascript">
-                alert("Para acceder a este contenido tiene que estar logueado");
-               window.location="index.php"
-           </script>';
-}
-
+include "../Componentes/comprobarSesion.php";
 include "../Componentes/header.php";
-require "../classConnectionMySQL.php";
+include "../classConnectionMySQL.php";
 
-// Creamos una nueva instancia de la clase que genera la conexion, y las distintas operaciones.
-$NewConn = new ConnectionMySQL();
- 
-// Creamos una nueva conexion, le pone el mismo nombre.
-$NewConn->CreateConnection();
-
+$instance = ConnectDb::getInstance();
+$conn = $instance->getConnection();
 
 
 if (isset($_GET["cargado"])) {
@@ -29,7 +18,7 @@ if (isset($_GET["cargado"])) {
     
 
 $query = "INSERT INTO proveeores (nombre, correo, telefono, contacto, ramo, cuit, pass, participo, cotizo) VALUES ('$nombre', '$correo', '$telefono', '$contacto', '$ramo', '$cuit', '$pass', 0, 0)";
-$result = $NewConn->ExecuteQuery($query); 
+$result = $instance->ExecuteQuery($query); 
 
         if($result) {
             //enviar el alert, y luego envia al inicio

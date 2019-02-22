@@ -22,26 +22,23 @@
 
 <?php
 require("classConnectionMySQL.php");
+$instance = ConnectDb::getInstance();
+$conn = $instance->getConnection();
 
 if(isset($_POST["user"]) && isset($_POST["pass"])){
 $usuNombre = $_POST["user"];
 $usuPass = $_POST["pass"];
 
 
-// Creamos una nueva instancia de la clase que genera la conexion, y las distintas operaciones.
-$NewConn = new ConnectionMySQL();
- 
-// Creamos una nueva conexion, le pone el mismo nombre.
-$NewConn->CreateConnection();
 
 
 $query="SELECT user, pass FROM usuarios WHERE user = '$usuNombre' AND pass = '$usuPass'";
 
 
-$result = $NewConn->ExecuteQuery($query); //crea una variable, en la que ejecutas un metodo.
+$result = $instance->ExecuteQuery($query); //crea una variable, en la que ejecutas un metodo.
 if($result){ //Si existen resultados...
  
-$resultados=$NewConn->GetCountAffectedRows($result);
+$resultados = $instance->GetCountAffectedRows($result);
     if($resultados == 1 ){
         session_start();
         $_SESSION["usuario"] = $usuNombre;

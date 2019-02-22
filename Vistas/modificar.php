@@ -1,13 +1,6 @@
 <?php
 
-session_start();
-if (!isset($_SESSION['usuario'])){
-echo '  <script type="text/javascript">
-                alert("Para acceder a este contenido tiene que estar logueado");
-               window.location="index.php"
-           </script>';
-}
-
+include "../Componentes/comprobarSesion.php";
 include "../Componentes/header.php";
 
 ?>
@@ -57,9 +50,9 @@ function validar() {
 	
 selector.onchange = function(){
 	if(selector.value == 1) {
-		buscador.placeholder = "Ingrese Cuit"
+		buscador.placeholder = "Ingresar Cuit"
 	} else if(selector.value == 2) {
-		buscador.placeholder = "Ingrese Nombre"
+		buscador.placeholder = "Ingresar Nombre"
 	}
 }
 
@@ -92,80 +85,8 @@ botonEnviar.onclick = function(e) {
 
 </script>
 
-<?php include "../Componentes/footer.php"; ?>
+<?php 
+	include "../Componentes/footer.php";
+ ?>
 
-
-<!--   	<script type="text/javascript">
-
-		function	actualizarEmpresa(){
-			var nombreNuevo = document.getElementById("idNombre").value
-			var mailNuevo = document.getElementById("idMail").value
-			var contactoNuevo = document.getElementById("idContacto").value
-			var telNuevo = document.getElementById("idTel").value
-			var ramoNuevo = document.getElementById("idRamo").value
-			var cuitNuevo = document.getElementById("idCuit").value
-			var idEmpresaAActualizar = document.getElementById("idEmpresaAActualizar").value
-
-				$.ajax({
-					type: 'POST',
-					url: 'actualizarAJAX.php',
-					data: {
-									'nombreNuevo': nombreNuevo,
-									'mailNuevo': mailNuevo,
-									'contactoNuevo': contactoNuevo,
-									'telNuevo': telNuevo,
-									'ramoNuevo': ramoNuevo,
-									'cuitNuevo': cuitNuevo,
-									'idEmpresaAActualizar': idEmpresaAActualizar,
-					},
-					success: function(res){
-						if (res == 1) {
-							alert("Los nuevos datos ingresados en la empresa se actualizaron correctamente");
-							  top.location.href = "principal.php"
-						} else {
-							if(confirm("No modificaste ningun dato. ¿Deseas volver al menu principal?")){
-								 top.location.href = "principal.php"
-							}
-						}
-					}
-				})
-		}
-
-		function borrarEmpresa() {
-			var empresaAEliminar = document.getElementById("idNombre").value
-				if(confirm('Desea eliminar la empresa ' + empresaAEliminar + '?')){
-				$.ajax({
-					type: 'POST',
-					url: 'eliminarEmpresa2.php',
-					data:{'empresaAEliminar': empresaAEliminar },
-						success: function(response){
-							console.log(response)
-						}
-				})
-			} else {
-				alert('La empresa continua en el sistema')
-			}
-		}
-
-		function autocompletar(){
-			var ramoEmpresaBuscada = document.getElementById("buscarEmpresa").value;
-				$.ajax({
-					type: 'POST',
-					url: 'search.php',
-					data:{'empresa': ramoEmpresaBuscada},
-						success: function(response){
-						console.log("apretasteeee");
-						$('#mylist').html(response);
-							$(".efectoSelect").click(function (){
-								var select = $(this)["0"].innerHTML
-								var myJSON = JSON.stringify(select);
-								var splitEmpresa = select.split(" ");
-								var empresaNombre = splitEmpresa["0"];
-								$("#buscarEmpresa").val(empresaNombre);
-								document.getElementById("buscarForm").submit();
-							})
-						}
-				})
-		}
-  	</script> -->
 
