@@ -38,6 +38,29 @@ $titulo = $_GET["titulo"];
 <script src='../JS/jquery.js'> </script>
 <script type="text/javascript">
 
+	armarCuadro();
+
+// $( document ).ready(function() {
+//     borrarLinea();
+// });
+
+function tuvieja(e) {
+	if(confirm('Desea borrar la empresa seleccionada?')){
+				$.ajax({
+				type: 'POST',
+				url: '../AJAX/eliminarEmpresa.php',
+				data:{ 'aEliminar' : e.toElement.id, 'listado' : document.querySelector('#nroExpedienteMail').value },
+					success: function(data){
+					alert(data)
+					armarCuadro();
+					}
+				})
+			} else {
+				alert('La empresa continua en el listado')
+			}
+			
+}
+
 function armarCuadro() {
 	var nroExp = document.querySelector('#nroExpedienteMail').value
 
@@ -48,11 +71,12 @@ function armarCuadro() {
 		success: function(data){
 				document.querySelector('#mytable').innerHTML = data;
 		}
-	})
+		
+	}) 
+	// borrarLinea();
+	
+	
 }
-
-armarCuadro();
-
 
 
 function vaciarSugg() {
@@ -84,7 +108,7 @@ document.querySelector("#idSug").onkeyup = () => { //ver de hacerlo cuando cambi
 	data:{'nombreEmpresa': nombreEmpresaBuscada, 'nroExp': nroExp},
 		success: function(data){
 			if(conteo == 0) { //para que arranque a buscar en la segunda opcion (ver algo mejor)
-				vaciarSugg();;
+				vaciarSugg();
 			} else {
 				document.querySelector("#sugg").innerHTML = data; //TRAE LOS RESULTADOS DEL QUERY CON EL VALOR QUE SE LE ENVIO
 				enumerarArray(); //FUNCION QUE ENUMERA LOS RESULTADOS Y LE PONE LA OPCION DE CLICK
@@ -93,8 +117,6 @@ document.querySelector("#idSug").onkeyup = () => { //ver de hacerlo cuando cambi
 		}
 	})
 }
-
-
 
 //FUNCION QUE ENUMERA LOS RESULTADOS Y LE PONE LA OPCION DEL CLICK.
 function enumerarArray() {
@@ -110,6 +132,7 @@ function enumerarArray() {
 				success: function(data){
 					armarCuadro();
 					vaciarSugg();
+					// borrarLinea();
 				}
 			})
 		}
@@ -117,34 +140,33 @@ function enumerarArray() {
 }
 
 
-function borrarLinea(){
-	var botonesEliminar = document.querySelectorAll(".botonEliminar")
+// function borrarLinea(){
+// 	var botonesEliminar = document.querySelectorAll(".botonEliminar")
 
 
-	for (var i = 0; i < botonesEliminar.length; i++) {
-		console.log('uno')
-		botonesEliminar[i].onclick = (e) => {
-			if(confirm('Desea borrar la empresa seleccionada?')){
-				$.ajax({
-				type: 'POST',
-				url: '../AJAX/eliminarEmpresa.php',
-				data:{ 'aEliminar' : e.toElement.id, 'listado' : document.querySelector('#nroExpedienteMail').value },
-					success: function(data){
-					alert(data)
-					armarCuadro();
-					}
-				})
-			} else {
-				alert('La empresa continua en el listado')
-			}
+// 	for (var i = 0; i < botonesEliminar.length; i++) {
+// 		console.log(botonesEliminar.length);
+// 		console.log('esto esta actuando')
+// 		botonesEliminar[i].onclick = (e) => {
+// 			if(confirm('Desea borrar la empresa seleccionada?')){
+// 				$.ajax({
+// 				type: 'POST',
+// 				url: '../AJAX/eliminarEmpresa.php',
+// 				data:{ 'aEliminar' : e.toElement.id, 'listado' : document.querySelector('#nroExpedienteMail').value },
+// 					success: function(data){
+// 					alert(data)
+// 					ejecutar()
+// 					}
+// 				})
+// 			} else {
+// 				alert('La empresa continua en el listado')
+// 			}
 
-		}
-	}
-}
+// 		}
+// 	}
+// }
 
-$( document ).ready(function() {
-    borrarLinea();
-});
+
 
 </script>
 

@@ -6,8 +6,9 @@ $conn = $instance->getConnection();
 
 	$tag = $_POST["empresa"];
 	$selector = $_POST["selector"];
+	echo $tag;
 
-	$selector == 1 ? $selector = 'cuit' : $selector = 'nombre';
+	// $selector == 1 ? $selector = 'cuit' : $selector = 'nombre';
 
 
 	$query = "SELECT nombre FROM proveeores WHERE $selector LIKE '%$tag%'";

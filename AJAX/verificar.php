@@ -4,16 +4,13 @@ require "../classConnectionMySQL.php";
 $instance = ConnectDb::getInstance();
 $conn = $instance->getConnection();
 
-
 $numero = $_POST["numeroExpediente"];
 
 $query = "SELECT * FROM listadoexpediente WHERE nroExpediente = '$numero'";
 $buscarExistente = $instance->ExecuteQuery($query);
 $modificadas = $instance->GetCountAffectedRows($buscarExistente);
 
-
 //ejecutar consulta que traiga el ultimo expediente cargado, para recomendar.
-
 
 if( $modificadas === 0){
   echo 0; //Si no existe el expediente, lo crea

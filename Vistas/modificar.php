@@ -36,13 +36,6 @@ include "../Componentes/header.php";
 <!-- ## NUEVO ## -->
 <form method="GET" id="buscarForm" onsubmit="return validar()" action="empresaAmodif.php">
 
-  <div class="form-group row">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Clave</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="buscarEmpresa" placeholder="">
-    </div>
-  </div>
-
   <fieldset id="fichaSelect" class="form-group">
     <div class="row">
       <legend class="col-form-label col-sm-2 pt-0">Seleccionar</legend>
@@ -61,11 +54,18 @@ include "../Componentes/header.php";
       </div>
     </div>
   </fieldset>
+  
+  <div class="form-group row">
+    <label for="inputEmail3" class="col-sm-2 col-form-label">Clave</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="buscarEmpresa" name="tag" placeholder="">
+    </div>
+  </div>
 
 	<!-- BOTON ENVIAR -->
   <div class="form-group row">
     <div class="col-sm-10">
-	<input type="submit" id="botonEnviar" name="cargar" value="Buscar" class="btn btn-primary">
+	<input type="submit" id="botonEnviar" value="Buscar" class="btn btn-primary">
     </div>
   </div>
 

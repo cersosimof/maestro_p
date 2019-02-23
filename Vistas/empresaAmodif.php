@@ -5,9 +5,10 @@
 	$instance = ConnectDb::getInstance();
 	$conn = $instance->getConnection();
 
-	$tag = $_GET["buscar"];
-	$selector = $_GET["selector"];
-	$selector == 1 ? $selector = 'cuit' : $selector = 'nombre';
+	$tag = $_GET["tag"];
+	$selector = $_GET["checkForm"];
+	
+	// $selector == 1 ? $selector = 'cuit' : $selector = 'nombre';
 
 	$query = "SELECT idEmpresa, nombre, correo, telefono, ramo, cuit, contacto FROM proveeores WHERE $selector LIKE '%$tag%'";
 	$result = $instance->ExecuteQuery($query); 

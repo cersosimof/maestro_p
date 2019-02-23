@@ -1,8 +1,8 @@
 <?php
 
 require "../classConnectionMySQL.php";
-$NewConn = new ConnectionMySQL();
-$NewConn->CreateConnection();
+$instance = ConnectDb::getInstance();
+$conn = $instance->getConnection();
 
 $nroExpediente = $_POST["nroExp"];
 
@@ -11,7 +11,7 @@ $SQLArmadoTabla = "SELECT listadoexpediente.idListado, listadoexpediente.nroExpe
 FROM listadoexpediente
 LEFT JOIN proveeores ON listadoexpediente.idEmpresa = proveeores.idEmpresa
 WHERE listadoexpediente.nroExpediente = '$nroExpediente'";
-$armadoTabla = $NewConn->ExecuteQuery($SQLArmadoTabla);
+$armadoTabla = $instance->ExecuteQuery($SQLArmadoTabla);
 
 
 while($tabla = mysqli_fetch_assoc($armadoTabla)){ ?>
@@ -21,7 +21,7 @@ while($tabla = mysqli_fetch_assoc($armadoTabla)){ ?>
 <td align="center"><?php echo $tabla["correo"]; ?></td>
 <td align="center"><?php echo $tabla["telefono"]; ?></td>
 <td align="center"><?php echo $tabla["contacto"]; ?></td>
-<td align="center" class='botonEliminar' id="<?php echo $tabla["idEmpresa"]; ?>">DELETE</td>
+<td align="center" class='botonEliminar' onclick='tuvieja(event)' id="<?php echo $tabla["idEmpresa"]; ?>">DELETE</td>
 </tr>
 <?php } ?>
 
