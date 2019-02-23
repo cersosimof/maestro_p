@@ -4,37 +4,37 @@ $nroExpediente = $_GET["nroExpediente"];
 $titulo = $_GET["titulo"];
 ?>
 
+<div class="container">
+	<h2> Nro. Expediente: <b> <?php echo $nroExpediente;  ?> - <?php echo $titulo;  ?> </b> - Empresas a invitar:</h2>
 
-<h2> Nro. Expediente: <b> <?php echo $nroExpediente;  ?> - <?php echo $titulo;  ?> </b> - Empresas a invitar:</h2>
+		<input type="hidden" value=<?php echo $nroExpediente;  ?> id="nroExpediente">
+		<table 	class=" table text-center">
+			<thead class="thead-dark">
+				<tr>
+					<th>Razon Social</th>
+					<th>Correo Electronico</th>
+					<th>Telefono</th>
+					<th>Contacto</th>
+					<th>OPCION</th>
+				</tr>
+			</thead>
+			<tbody id="mytable">
 
-	<input type="hidden" value=<?php echo $nroExpediente;  ?> id="nroExpediente">
-	<table 	class=" table text-center">
-		<thead class="thead-dark">
-			<tr>
-	    		<th>Razon Social</th>
-			    <th>Correo Electronico</th>
-			    <th>Telefono</th>
-			    <th>Contacto</th>
-			    <th>OPCION</th>
-	 		</tr>
-	 	</thead>
-	 	<tbody id="mytable">
+			</tbody>
+			<input type="hidden" id="titulo" value="<?php echo $titulo; ?>">
+			<input type="hidden" id="nroExpedienteMail" value="<?php echo $nroExpediente; ?>">
 
-		  </tbody>
-		<input type="hidden" id="titulo" value="<?php echo $titulo; ?>">
-		<input type="hidden" id="nroExpedienteMail" value="<?php echo $nroExpediente; ?>">
-
-	</table>
+		</table>
 
 
-<!-- AGREGA UNA NUEVA EMPRESA -->
-<div  id='autocomplete'>
-<input type="text" autocomplete='off' class="form-control form-control-lg eliminarRecuadro" placeholder='¿Falta alguna empresa?, agreguela aqui!' id='idSug'>
-	<ul class='eliminaPunto' id="sugg">
-	</ul>
+	<!-- AGREGA UNA NUEVA EMPRESA -->
+	<div  id='autocomplete'>
+	<input type="text" autocomplete='off' class="form-control form-control-lg eliminarRecuadro" placeholder='¿Falta alguna empresa?, agreguela aqui!' id='idSug'>
+		<ul class='eliminaPunto' id="sugg">
+		</ul>
+	</div>
+	<!-- AGREGA UNA NUEVA EMPRESA -->
 </div>
-<!-- AGREGA UNA NUEVA EMPRESA -->
-
 <script src='../JS/jquery.js'> </script>
 <script type="text/javascript">
 

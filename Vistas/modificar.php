@@ -34,48 +34,47 @@ include "../Componentes/header.php";
 <!-- ## VIEJO ## -->
 
 <!-- ## NUEVO ## -->
-<form method="GET" id="buscarForm" onsubmit="return validar()" action="empresaAmodif.php">
+<div style="margin-top: 3%"class="container">
+  <form method="GET" id="buscarForm" onsubmit="return validar()" action="empresaAmodif.php">
 
-  <fieldset id="fichaSelect" class="form-group">
-    <div class="row">
-      <legend class="col-form-label col-sm-2 pt-0">Seleccionar</legend>
-      <div class="col-sm-10">
+    <fieldset id="fichaSelect" class="form-group">
+      <div class="row">
+        <legend class="col-form-label col-sm-2 pt-0">Seleccionar</legend>
+        <div class="col-sm-10">
 
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="checkForm" id="gridCuit" value="cuit" checked>
-          <label class="form-check-label" for="gridCuit"> Cuit </label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="checkForm" id="gridCuit" value="cuit" checked>
+            <label class="form-check-label" for="gridCuit"> Cuit </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="checkForm" id="gridNombre" value="nombre">
+            <label class="form-check-label" for="gridNombre"> Nombre </label>
+          </div>
+
         </div>
-
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="checkForm" id="gridNombre" value="nombre">
-          <label class="form-check-label" for="gridNombre"> Nombre </label>
-        </div>
-
+      </div>
+    </fieldset>
+    
+    <div class="form-group row">
+      <label for="inputEmail3" class="col-sm-2 col-form-label">Clave</label>
+      <div class="col-sm-10" id="autocomplete" >
+        <input type="text" class="form-control eliminarRecuadro" autocomplete="off" id="sugerencia" name="tag">
+        <ul class='eliminaPunto' id="opciones">
       </div>
     </div>
-  </fieldset>
-  
-  <div class="form-group row">
-    <label for="inputEmail3" class="col-sm-2 col-form-label">Clave</label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" id="buscarEmpresa" name="tag" placeholder="">
+
+    <!-- BOTON ENVIAR -->
+    <div class="form-group row">
+      <div class="col-sm-10">
+    <input type="submit" id="botonEnviar" value="Buscar" class="btn btn-primary">
+      </div>
     </div>
-  </div>
 
-	<!-- BOTON ENVIAR -->
-  <div class="form-group row">
-    <div class="col-sm-10">
-	<input type="submit" id="botonEnviar" value="Buscar" class="btn btn-primary">
-    </div>
-  </div>
-
-</form>
-<!-- ## NUEVO ## -->
-
+  </form>
+  <!-- ## NUEVO ## -->
+</div>
 <script type="text/javascript">
-
-
-
 
 var box = document.querySelector("#alerta");
 var formulario = document.querySelector("#buscarForm");
@@ -83,49 +82,50 @@ var selector = document.querySelector("#selector");
 var buscador = document.querySelector("#buscarEmpresa");
 var botonEnviar = document.querySelector("#botonEnviar");
 
-// function validar() {
-// 	if(selector.value == 0) {
-// 		alert("Ingrese una opcion para buscar")
-// 		return false;
-// 	} else {
-// 		return true;
-// 	}
-// }
-	
-// selector.onchange = function(){
-// 	if(selector.value == 1) {
-// 		buscador.placeholder = "Ingresar Cuit"
-// 	} else if(selector.value == 2) {
-// 		buscador.placeholder = "Ingresar Nombre"
-// 	}
-// }
+function validar() {
+	if(buscador.value == "") {
+		alert("Ingrese una opcion para buscar, seleccione cuit o nombre.")
+		return false;
+	} else {
+		return true;
+	}
+}
 
-// botonEnviar.onclick = function(e) {
-// 	if(buscador.value == ""){
-// 		e.preventDefault();	
-// 		alert('Completar datos')
-// 	} else {
-// 		e.preventDefault();
-// 				$.ajax({
-// 					type: 'POST',
-// 					url: '../AJAX/buscarEmpresa.php',
-// 					data: {
-// 						'selector': selector.value,
-// 						'empresa': buscador.value
-// 					},
-// 					success: function(res){
-// 						if(res == "OK") {
-// 							formulario.submit();
-// 						} else {
-// 							document.getElementById("alerta").innerHTML = res;
-
-// 						}
+// CAMBIA LA VARIABLE DONDE BUSCAR PARA SABER QUE CAMPO ESTA PRENDIDO
+var dondeBuscar = "cuit";
+document.getElementById("gridCuit").addEventListener("click", function(){
+  dondeBuscar = "cuit";
+  console.log(dondeBuscar)
+});
+document.getElementById("gridNombre").addEventListener("click", function(){
+  dondeBuscar = "nombre";
+  console.log(dondeBuscar)
+});
+// CAMBIA LA VARIABLE DONDE BUSCAR PARA SABER QUE CAMPO ESTA PRENDIDO
 
 
-// 					}
-// 				})
-// 	}
-// }
+document.querySelector("#sugerencia").onkeyup = () => { //ver de hacerlo cuando cambie la cantidad de letras que tenga el imput
+var aBuscar = document.querySelector("#sugerencia").value;
+  $.ajax({
+  type: 'POST',
+  url: '../AJAX/sugCuitNombre.php',
+  data:{'clave': aBuscar, 'donde': dondeBuscar},
+    success: function(data){
+      document.getElementById("opciones").innerHTML = data;
+      click() 
+    }
+  })
+}
+
+function click() {
+	var clickAgregarArray = document.querySelectorAll('.clickAgregar');
+	for (var i = 0; i < clickAgregarArray.length; i++) {
+		var select = clickAgregarArray[i].id;
+			clickAgregarArray[i].onclick = (e) => { //click en la opcion agrega la linea.
+        var aBuscar = document.querySelector("#sugerencia").value = e.path[0].innerHTML;
+		}
+	}
+}
 
 </script>
 

@@ -21,7 +21,7 @@ while($tabla = mysqli_fetch_assoc($armadoTabla)){ ?>
 <td align="center"><?php echo $tabla["correo"]; ?></td>
 <td align="center"><?php echo $tabla["telefono"]; ?></td>
 <td align="center"><?php echo $tabla["contacto"]; ?></td>
-<td align="center" class='botonEliminar' onclick='tuvieja(event)' id="<?php echo $tabla["idEmpresa"]; ?>">DELETE</td>
+<td align="center" class='botonEliminar' onclick='tuvieja(event)' id="<?php echo $tabla["idEmpresa"]; ?>"><i class="fas fa-trash-alt"></i></td>
 </tr>
 <?php } ?>
 
