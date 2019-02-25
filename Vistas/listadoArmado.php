@@ -87,7 +87,7 @@ function vaciarSugg() {
 // AL HACER CLICK POR FUERA DEL INPUT AUTOCOMPLETE EJECUTA LA FUNCION VACIARSUGG.
 var specifiedElement = document.getElementById('#autocomplete');
 document.addEventListener('click', function(event) {
-	if((event.path[1].id) !== 'autocomplete') {
+	if((event.target.id) !== 'autocomplete') {
 		vaciarSugg();
 	}
 });

@@ -16,7 +16,7 @@
 	<span class="navbar-toggler-icon"></span>
 	</button> -->
 	<div class="collapse navbar-collapse" id="navbarNavDropdown">
-	<a class="navbar-brand" href="/proveedores/Vistas/principal.php"><i class="fas fa-home"></i></a>
+	<a class="navbar-brand" href="/provee/Vistas/principal.php"><i class="fas fa-home"></i></a>
 		<!-- <ul class="navbar-nav">
 			<li class="nav-item">
 				<a class="nav-link" href="../Vistas/alta.php">Alta</a>

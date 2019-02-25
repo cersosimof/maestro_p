@@ -44,7 +44,6 @@ window.onload = function() {
   ponerCuadrados();
 }
 
-
 window.addEventListener("resize", function() {
   ponerCuadrados();
 });

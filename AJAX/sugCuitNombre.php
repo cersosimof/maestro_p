@@ -12,14 +12,14 @@ if($donde == 'cuit') {
     $resultadoCuit = $instance->ExecuteQuery($sqlQuery);
 
     while($resultados = $resultadoCuit->fetch_assoc()){ 
-    echo "<li class='resaltar clickAgregar'>" , $resultados["cuit"] , "</li>";
+    echo "<li onclick='getText(this)' class='resaltar clickAgregar'>" , $resultados["cuit"] , "</li>";
     }
 } else {
     $sqlQuery = "SELECT nombre FROM `proveeores` WHERE nombre LIKE '%$que%' LIMIT 0,5";
     $resultadoNombre = $instance->ExecuteQuery($sqlQuery);
 
     while($resultados = $resultadoNombre->fetch_assoc()){ 
-    echo "<li class='resaltar clickAgregar'>" , $resultados["nombre"] , "</li>";
+    echo "<li onclick='getText(this)' class='resaltar clickAgregar'>" , $resultados["nombre"] , "</li>";
     }
 }
 
