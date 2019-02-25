@@ -10,31 +10,13 @@
 <body>
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light anchoTotal">
-
-	<!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-	<span class="navbar-toggler-icon"></span>
-	</button> -->
-	<div class="collapse navbar-collapse" id="navbarNavDropdown">
-	<a class="navbar-brand" href="/provee/Vistas/principal.php"><i class="fas fa-home"></i></a>
-		<!-- <ul class="navbar-nav">
-			<li class="nav-item">
-				<a class="nav-link" href="../Vistas/alta.php">Alta</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="../Vistas/modificar.php">Modificacion y baja</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="../Vistas/armarListado.php">Listado</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="listadosArmados.php">Listados Armados</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="../logout.php">Cerrar</a>
-			</li>
-		</ul> -->
-		<a style="margin-left: 92%"class="nav-link" href="../logout.php">Salir</a>
-	</div>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="/provee/Vistas/principal.php"><i class="fas fa-home"></i></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+		<a style="margin-left: 92%" class="nav-link" href="../logout.php"><i class="fas fa-times-circle"></i></a>
+        </div>
 </nav>
-<!-- <div class='container'> -->
+<p style="margin-bottom: 5%"></p>
+

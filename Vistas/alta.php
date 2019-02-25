@@ -22,7 +22,7 @@ $result = $instance->ExecuteQuery($query);
 
         if($result) {
             //enviar el alert, y luego envia al inicio
-            echo "<script>alert('El proveedor ", $nombre, " fue cargado correctamente, el mismo trabaja con los ramos ", $ramo,"'); window.location.href = 'principal.php'</script>"; 
+            echo "<script>alert('El proveedor ", $nombre, " fue cargado correctamente, el mismo trabaja con los ramos ", $ramo,", se redirigira al inicio.'); window.location.href = 'principal.php'</script>"; 
         } else {
             echo "<script>alert('Error!!! Intente nuevamente')</script>";
         }

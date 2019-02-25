@@ -12,28 +12,31 @@ $resultado = $instance->ExecuteQuery($query);
 $masAlto = $resultado->fetch_assoc();
 
 ?>
-<h2 style="margin: 3%">INGRESAR DATOS DE EXPEDIENTE:</h2>
-<form style="margin: 3%" action="listadoArmado.php" method="POST" id="formArmarListado">
-	
-	<div class="form-group">
-		<label for="numero">Numero: <span id="mensaje"> </span> </label>
-		<input required type="number" name="nroExpediente" class="form-control" id="numero" placeholder="Ultimo Expediente <?php echo $masAlto["nroExpediente"]; ?>">
-	</div>
+<div class="container">
+	<h2>Completar para crear expediente:</h2>
+	<hr class="featurette-divider">
 
-	<div class="form-group">
-		<label for="titulo">Titulo:</label>
-		<input required type="text" name="titulo" class="form-control" id="titulo" placeholder="Adq. de utiles 8 de Junio de 1988">
-	</div>
+	<form>
 
-	<div class="form-group">
-		<label for="tag">Ramo a incluir:</label>
-		<input required type="text" name="buscar" class="form-control" id="ramos" placeholder="Utiles">
-	</div>
+		<div class="form-group">
+			<label for="numero">Numero: <span id="mensaje"> </span> </label>
+			<input required type="number" name="nroExpediente" class="form-control" id="numero" placeholder="Ultimo Expediente <?php echo $masAlto["nroExpediente"]; ?>">
+		</div>
 
-	<input type="submit" name="Crear" id="botonSubmit" class="btn btn-primary">
+		<div class="form-group">
+			<label for="titulo">Titulo:</label>
+			<input required type="text" name="titulo" class="form-control" id="titulo" placeholder="Adq. de utiles 8 de Junio de 1988">
+		</div>
 
-</form>
+		<div class="form-group">
+			<label for="tag">Ramo a incluir:</label>
+			<input required type="text" name="buscar" class="form-control" id="ramos" placeholder="Utiles">
+		</div>
 
+		<input type="submit" name="Crear" id="botonSubmit" value="Crear Expediente" class="btn btn-primary">
+
+	</form>
+</div>
 
 
 <script >
@@ -41,7 +44,8 @@ $masAlto = $resultado->fetch_assoc();
 	//EVENTO QUE SE DISPARA AL ABANDONAR EL CAMPO "NUMERO"
 	document.querySelector("#numero").onblur = (e) => {
 		var numero = document.getElementById("numero").value;
-		$.ajax({
+		if(numero != "") {
+			$.ajax({
 			type: 'POST',
 			url: '../AJAX/verificar.php',
 			data:{'numeroExpediente': numero},
@@ -59,6 +63,7 @@ $masAlto = $resultado->fetch_assoc();
 					}
 				}
 		})
+		}
 	}
 
 	//
@@ -67,7 +72,6 @@ $masAlto = $resultado->fetch_assoc();
 		var numero = document.getElementById("numero").value;
 		var titulo = document.getElementById("titulo").value
 		var ramos = document.getElementById("ramos").value;
-
 
 		$.ajax({
 			type: 'POST',

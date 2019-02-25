@@ -17,7 +17,6 @@ $result = $instance->ExecuteQuery($queryBuscar);
     }
 //ver como hacer el verificar   
 echo '1'
-
  ?>
 
 

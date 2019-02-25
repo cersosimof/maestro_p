@@ -25,7 +25,7 @@ include "../Componentes/header.php";
     <a href="../Vistas/armarListado.php"><button type="button" class="btn btn-outline-secondary styleBoton" id="botonPrincipal">Armar Listado</button></a>
     </div>
     <div class="col-sm">
-    <button type="button" class="btn btn-outline-secondary styleBoton">Ver Listados Armados</button>
+    <a href="../Vistas/mostrarListados.php"><button type="button" class="btn btn-outline-secondary styleBoton">Ver Listados Armados</button></a>
     </div>
     <div class="col-sm">
     <button type="button" class="btn btn-outline-secondary styleBoton">Buscar Empresas</button>

@@ -4,7 +4,7 @@ include "../Componentes/header.php";
 ?>
 
 
-<div style="margin-top: 3%"class="container">
+<div style="margin-top: 3%" class="container">
 <h2 style="margin-bottom: 2%"><i class="fas fa-search"></i> - Buscar Proveedor.</h2>
 <hr class="featurette-divider">
 	<form method="GET" id="buscarForm" onsubmit="return validar()" action="empresaAmodif.php">
