@@ -11,11 +11,11 @@
 
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="/provee/Vistas/principal.php"><i class="fas fa-home"></i></a>
+        <a class="navbar-brand" href="/proveedores/Vistas/principal.php"><i class="fas fa-home"></i></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
-		<a style="margin-left: 92%" class="nav-link" href="../logout.php"><i class="fas fa-times-circle"></i></a>
+		<a style="margin-left: 92%" class="nav-link" href="../Componentes/logout.php"><i class="fas fa-times-circle"></i></a>
         </div>
 </nav>
 <p style="margin-bottom: 5%"></p>

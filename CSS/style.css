@@ -62,3 +62,8 @@ color: blue;
 .footer {
 	margin-top: 3%;
 }
+
+.modal-content
+{
+	width: 130%;
+}
