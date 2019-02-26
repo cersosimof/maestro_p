@@ -13,7 +13,6 @@
   <p class="float-right"><a href="#">Back to top</a></p>
   <p>© 2019 ChersoFM.</p>
 </footer>
-
 <script type="text/javascript" src="../JS/jquery.js"></script>
 </body>
 

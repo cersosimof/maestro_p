@@ -12,20 +12,51 @@ $conn = $instance->getConnection();
 	$ramo = $_POST["ramo"];
     $pass = md5($_POST["pass"]);
 
-    echo $nombre;
-    echo $cuit;
-    echo $correo;
-    echo $telefono;
-    echo $contacto;
-    echo $ramo;
-    echo $pass;
 
     $query = "INSERT INTO proveeores (nombre, correo, telefono, contacto, ramo, cuit, pass, participo, cotizo) VALUES ('$nombre', '$correo', '$telefono', '$contacto', '$ramo', '$cuit', '$pass', 0, 0)";
     $result = $instance->ExecuteQuery($query); 
 
-            if($result) {
-                //enviar el alert, y luego envia al inicio
-                echo "<script>alert('El proveedor ", $nombre, " fue cargado correctamente, el mismo trabaja con los ramos ", $ramo,", se redirigira al inicio.'); window.location.href = 'principal.php'</script>"; 
-            } else {
-                echo "<script>alert('Error!!! Intente nuevamente')</script>";
+            if($result) {            ?>    
+                <div id="modalMensaje" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Mensaje</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>El Proveedor se cargo correctamente.</p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                    </div>
+                    </div>
+                </div> <?php
+            } else { ?>
+
+ <div id="modalMensaje" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Mensaje</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>El Proveedor se cargo correctamente.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="irAInicio()" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                    </div>
+                    </div> 
+
+
+                    <?php
             }
+?>
+     

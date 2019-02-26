@@ -38,14 +38,13 @@ include "../Componentes/header.php";
   <div class="form-row">
     <div class="form-group col-md-6">
         <label for="idNombre">Nombre o Razon social:</label>
-        <input type="text" name="nombre" class="form-control" id="idNombre" required  >
+        <input type="text" class="form-control" id="idNombre" required  >
     </div>
     <div class="form-group col-md-6">
         <label for="idCuit">CUIT:</label>
         <input type="text" name="cuit" class="form-control" id="idCuit" onblur="borrarGuion()" required  >
     </div>
   </div>
-
 
   <div class="form-row">
     <div class="form-group col-md-9">
@@ -86,24 +85,30 @@ include "../Componentes/header.php";
 		<button name="Cargar" id="btnEnviar" value="Cargar Proveedor" class="btn btn-secondary btn-lg btn-block">Cargar</button>
 </form>
 
-<div id="mensaje"></div>
+<div id="mensaje">
+
 </div>
 
+</div>
+</div>
+
+<?php
+include "../Componentes/footer.php"
+?>
 
 
 
-
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script> //MOVER SCRIPTS
 
-var nombre = document.querySelector("#idNombre").value;
-var cuit = document.querySelector("#idCuit").value;
-var ramo = document.querySelector("#idRamo").value;
-var correo = document.querySelector("#idCorreo").value;
-var contacto = document.querySelector("#idContacto").value;
-var telefono = document.querySelector("#idTel").value;
-var pass = document.querySelector("#idPass").value;
-
 document.querySelector("#btnEnviar").addEventListener("click", (e)=> {
+    var nombre = document.querySelector("#idNombre").value;
+    var cuit = document.querySelector("#idCuit").value;
+    var ramo = document.querySelector("#idRamo").value;
+    var correo = document.querySelector("#idCorreo").value;
+    var contacto = document.querySelector("#idContacto").value;
+    var telefono = document.querySelector("#idTel").value;
+    var pass = document.querySelector("#idPass").value;
     e.preventDefault();
 
 		$.ajax({
@@ -117,9 +122,8 @@ document.querySelector("#btnEnviar").addEventListener("click", (e)=> {
                     'telefono': telefono,
                     'pass': pass},
 			success: function(data){
-				// document.querySelector("#mensaje").innerHTML = data;
-                console.log(data)
-                // $("#momodal").modal("show")
+				document.querySelector("#mensaje").innerHTML = data;
+                $("#modalMensaje").modal("show")
 			}
 		})
 })
@@ -152,8 +156,6 @@ function borrarGuion() {
 
 </script>
 
-<?php
-include "../Componentes/footer.php"
-?>
+
 
 
