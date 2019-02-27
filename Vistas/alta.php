@@ -1,32 +1,6 @@
 <?php
 include "../Componentes/comprobarSesion.php";
 include "../Componentes/header.php";
-// include "../classConnectionMySQL.php";
-
-// $instance = ConnectDb::getInstance();
-// $conn = $instance->getConnection();
-
-
-// if (isset($_GET["cargado"])) {
-// 	$nombre = $_POST["nombre"];
-// 	$cuit = $_POST["cuit"];
-// 	$correo = $_POST["correo"];
-// 	$telefono = $_POST["telefono"];
-// 	$contacto = $_POST["contacto"];
-// 	$ramo = $_POST["ramo"];
-//     $pass = md5($_POST["pass"]);
-    
-
-//     $query = "INSERT INTO proveeores (nombre, correo, telefono, contacto, ramo, cuit, pass, participo, cotizo) VALUES ('$nombre', '$correo', '$telefono', '$contacto', '$ramo', '$cuit', '$pass', 0, 0)";
-//     $result = $instance->ExecuteQuery($query); 
-
-//             if($result) {
-//                 //enviar el alert, y luego envia al inicio
-//                 echo "<script>alert('El proveedor ", $nombre, " fue cargado correctamente, el mismo trabaja con los ramos ", $ramo,", se redirigira al inicio.'); window.location.href = 'principal.php'</script>"; 
-//             } else {
-//                 echo "<script>alert('Error!!! Intente nuevamente')</script>";
-//             }
-// }
 
 ?>
 
@@ -109,6 +83,16 @@ document.querySelector("#btnEnviar").addEventListener("click", (e)=> {
     var contacto = document.querySelector("#idContacto").value;
     var telefono = document.querySelector("#idTel").value;
     var pass = document.querySelector("#idPass").value;
+
+// document.querySelector("#idNombre").value = "Prueba"
+// document.querySelector("#idCuit").value = "20338823238"
+// document.querySelector("#idRamo").value = "dos, tres, cuatro"
+// document.querySelector("#idCorreo").value = "prueba@prueba.com"
+// document.querySelector("#idContacto").value = "contacto prueba"
+// document.querySelector("#idTel").value= "42944926"
+// document.querySelector("#idPass").value= "1234"
+
+
     e.preventDefault();
 
 		$.ajax({
@@ -128,6 +112,15 @@ document.querySelector("#btnEnviar").addEventListener("click", (e)=> {
 		})
 })
 
+function alerta() {
+    window.location.href = 'principal.php';
+}
+function nuevo() {
+    window.location.href = 'alta.php';
+}
+function error() {
+    $("#modalMensaje").modal("hide")
+}
 
 function mostrarPass() {
     switch(document.querySelector('#idPass').type) {

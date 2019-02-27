@@ -1,0 +1,8 @@
+var nombre = document.querySelector("#idNombre").value;
+var cuit = document.querySelector("#idCuit").value;
+var ramo = document.querySelector("#idRamo").value;
+var contacto = document.querySelector("#idContacto").value;
+var correo = document.querySelector("#idCorreo").value;
+var telefono = document.querySelector("#idTel").value;
+var pass = document.querySelector("#idPass").value;
+
